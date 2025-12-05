@@ -7,33 +7,58 @@ import Section2 from "../sections/Section2.astro";
 import MisionVision from "../sections/Mision-vision.astro";
 ---
 
-<Layout1 title="AC FRIOSYSTEM S.A.S">
+<Layout1 title="HC Company S.A.S">
 	<Hero />
 
 	<section id="nosotros" class="flex-column">
-		<h1>NOSOTROS</h1>
+		<h1>SERVICIO ESPECIALIZADO PARA EQUIPOS DE LABORATORIO</h1>
 		<p>
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam porro rem
-			veritatis recusandae qui? Voluptas, nisi! Modi alias totam consequuntur
-			adipisci molestiae. Quas qui illum, dignissimos amet molestiae inventore
-			possimus! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-			Obcaecati incidunt blanditiis fugit commodi nisi ipsum consequatur dolore
-			placeat aliquid maxime exercitationem, fuga pariatur cum officia rem
-			perferendis, nesciunt facere aut.
+			Nuestros esfuerzos están encaminados a satisfacer las necesidades de
+			mantenimiento preventivo, correctivo, predictivo, ajuste y calificación y
+			a alargar la vida útil de los equipos.
+		</p>
+		<p>
+			Contamos con experiencia, conocimiento y recurso físico y humano, que nos
+			permiten ofrecer un servicio integral, profesional y empático con los
+			requerimientos e intereses de nuestros clientes.
 		</p>
 	</section>
 
-	<!-- <Section2 /> -->
-
-	<!-- <Section2 /> -->
-
 	<MisionVision />
+
+	<section id="equipos">
+		<div class="flex-column">
+			<h2>+5.500</h2>
+			<p>EQUIPOS INTERVENIDOS</p>
+		</div>
+	</section>
 </Layout1>
 
 <style>
 	#nosotros {
 		text-align: center;
 		background-color: #fff;
-		gap: 0;
+		gap: 10px;
+	}
+
+	#nosotros h1 {
+		font-size: 1.5rem;
+		line-height: normal;
+		/* margin-bottom: 10px; */
+	}
+
+	#equipos {
+		background-color: #fff;
+	}
+
+	#equipos h2 {
+		font-size: 3rem;
+		margin-bottom: 0px;
+	}
+
+	@media (min-width: 768px) {
+		#nosotros h1 {
+			font-size: 2rem;
+		}
 	}
 </style>

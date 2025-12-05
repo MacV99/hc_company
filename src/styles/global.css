@@ -24,6 +24,7 @@
 * {
   margin: 0;
   padding: 0;
+  line-height: normal;
   box-sizing: border-box;
   font-family: "Lemon/Milk", 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
 }
@@ -136,4 +137,8 @@ a.boton,
 
 
 /*responsive para pantallas de escritorio */
-@media (min-width: 768px) {}
+@media (min-width: 768px) {
+  p {
+    font-size: 1.1rem;
+  }
+}

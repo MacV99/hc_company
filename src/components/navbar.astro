@@ -3,6 +3,8 @@
 
   <div class="flex-column" id="overlay">
     <a href="./">Inicio</a>
+    <a href="./planeta_hogar">Planeta hogar</a>
+    <a href="./">Contáctenos</a>
     <a href="./reporte">Reporte</a>
     <a href="./clientes">clientes</a>
     <i class="bi bi-x-lg close-nav" aria-label="Cerrar menú"></i>
@@ -58,10 +60,11 @@
     text-align: center;
     text-transform: uppercase;
     color: var(--clr-dark);
+    line-height: normal;
   }
 
-  /* Desktop: no overlay, enlaces inline, sin iconos */
-  @media (min-width: 700px) {
+  /* Desktop */
+  @media (min-width: 768px) {
     .open-nav,
     .close-nav {
       display: none;

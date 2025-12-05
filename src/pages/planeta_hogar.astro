@@ -1,0 +1,80 @@
+---
+import Layout1 from "../layouts/Layout1.astro";
+
+import Hero from "../sections/Hero.astro";
+import Section1 from "../sections/Section1.astro";
+import Section2 from "../sections/Section2.astro";
+import MisionVision from "../sections/Mision-vision.astro";
+---
+
+<Layout1 title="HC Company S.A.S">
+  <Hero />
+  <section>
+    <div class="flex-row">
+      <div class="nosotros flex-column">
+        <h2>¿Qué son los negocios verdes?</h2>
+        <p>
+          Contemplan las actividades económicas en las que se ofertan bienes o
+          servicios, que generan impactos ambientales positivos y además
+          incorporan buenas prácticas ambientales, sociales y económicas con
+          enfoque de ciclo de vida, contribuyendo a la conservación del ambiente
+          como capital.
+        </p>
+
+        <a href="https://www.minambiente.gov.co/negocios-verde"
+          >https://www.minambiente.gov.co/negocios-verde</a
+        >
+        <a
+          href="https://www.sostenibilidad.com/desarrollo-sostenible/en-que-consiste-la-economia-circular/"
+          >https://www.sostenibilidad.com/desarrollo-sostenible/en-que-consiste-la-economia-circular/</a
+        >
+        <a
+          href="https://www.andi.com.co/Uploads/Estrategia%20Nacional%20de%20EconA%CC%83%C2%B3mia%20Circular-2019%20Final.pdf_637176135049017259.pdf"
+          >https://www.andi.com.co/Uploads/Estrategia%20Nacional%20de%20EconA%CC%83%C2%B3mia%20Circular-2019%20Final.pdf_637176135049017259.pdf</a
+        >
+        <a
+          class="boton"
+          href="https://wa.me/573136536775?text=Hola%20quiero%20información"
+          target="_blank">CONTÁCTENOS</a
+        >
+      </div>
+      <img src="/img/planeta.jpg" alt="banner" />
+    </div>
+  </section>
+</Layout1>
+
+<style>
+  p {
+    text-align: left;
+  }
+
+  img {
+    display: none;
+  }
+
+  a {
+  }
+
+  div.flex-row {
+    flex-wrap: wrap;
+  }
+
+  @media (min-width: 768px) {
+    .nosotros {
+      width: 40%;
+    }
+
+    img {
+      display: block;
+      width: 55%;
+      height: auto;
+      aspect-ratio:;
+
+      border-radius: 10px;
+    }
+
+    div.flex-row {
+      gap: 40px;
+    }
+  }
+</style>
