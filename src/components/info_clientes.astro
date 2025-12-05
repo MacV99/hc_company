@@ -1,0 +1,416 @@
+---
+// Sin imports
+---
+
+<section id="consulta-equipos" class="flex-column">
+  <div class="flex-column recuadro">
+    <h2>Consulta el Estado de tus Equipos</h2>
+    <p>
+      Ingresa tu número de identificación para ver el estado actual de tus
+      equipos con nosotros
+    </p>
+
+    <div class="form-container flex-column">
+      <input
+        type="text"
+        id="identificacion"
+        placeholder="Ingresa tu Cédula o NIT"
+      />
+      <button onclick="consultarEstado()">Consultar</button>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div
+    id="modal-overlay"
+    class="modal-overlay flex-column"
+    style="display: none;"
+  >
+    <div class="modal-content flex-column">
+      <button class="modal-close" onclick="cerrarModal()">
+        <i class="bi bi-x-lg" aria-label="Cerrar modal"></i>
+      </button>
+      <div id="modal-body">
+        <!-- Aquí irá el contenido dinámico -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ESTILOS DEL MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: #000000bb;
+    z-index: 100;
+    max-width: none;
+  }
+
+  .modal-content {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 12px;
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    min-height: 200px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  #consulta-equipos .modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 8px 12px;
+    background: var(--clr-white);
+    color: var(--clr-dark);
+    border: solid 1px var(--clr-gray);
+    width: fit-content;
+    transition: all 0.3s ease;
+  }
+
+  #consulta-equipos .modal-close:hover {
+    background-color: var(--clr-gray);
+  }
+
+  /* ESTILOS GENERALES */
+  #consulta-equipos {
+    gap: 10px;
+    background-color: var(--clr-white);
+  }
+
+  .recuadro {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    border: solid 1px var(--clr-gray);
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+  }
+
+  #consulta-equipos h2 {
+    text-align: center;
+    border-bottom: solid 2px var(--clr-white);
+    margin-bottom: 10px;
+  }
+
+  #consulta-equipos p {
+    max-width: 600px;
+    line-height: 1.5;
+    color: var(--clr-dark2);
+    margin: 0 0 15px 0;
+  }
+
+  .form-container {
+    gap: 15px;
+    width: 100%;
+  }
+
+  #consulta-equipos input {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: solid 1px var(--clr-white);
+    background-color: var(--clr-white);
+    transition: var(--transition);
+  }
+
+  #consulta-equipos input:focus {
+    outline: none;
+    border-color: var(--clr-gray);
+  }
+
+  #consulta-equipos button {
+    background-color: var(--clr-dark);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  #consulta-equipos button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  /* ESTILOS PARA CONTENIDO DEL MODAL */
+  .modal-resultado {
+    text-align: center;
+  }
+
+  .modal-resultado h3 {
+    margin: 0 0 25px 0;
+    color: var(--clr-dark);
+    font-size: 24px;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .info-card {
+    background: var(--clr-white);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: left;
+    border: solid 1px var(--clr-gray);
+  }
+
+  .info-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .info-value {
+    display: block;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .modal-error {
+    text-align: center;
+  }
+
+  .modal-error p {
+    color: #856404;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+
+  .btn-secondary {
+    background-color: #6c757d !important;
+    margin-top: 10px;
+  }
+
+  .btn-secondary:hover {
+    background-color: #5a6268 !important;
+  }
+
+  .modal-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 40px 0;
+  }
+
+  .modal-loading p {
+    margin: 0;
+    color: var(--clr-dark2);
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @media (max-width: 768px) {
+    #consulta-equipos {
+      padding: 20px;
+    }
+
+    .modal-content {
+      width: 95%;
+      padding: 30px 20px;
+    }
+
+    .info-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  //@ts-nocheck
+  // URL de tu Google Sheet publicado como CSV
+  const SHEET_URL =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vQW9HE0pnzSsXfqoD9qXe28EMfT2D6AFhoM3T_83Z8ajhdKDgL86tE8cSRfTTTtuVVm8j1KZLrHefc_/pub?gid=0&single=true&output=csv";
+
+  async function buscarDatos(identificacion, url) {
+    const res = await fetch(`${url}&rand=${Date.now()}`, {
+      cache: "no-store",
+      mode: "cors",
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const csv = await res.text();
+    const lines = csv.trim().split("\n");
+
+    if (lines.length < 2) {
+      console.error("No hay datos en el CSV");
+      return null;
+    }
+
+    const headers = lines[0]
+      .split(",")
+      .map((h) => h.trim().toLowerCase().replace(/['"]/g, ""));
+
+    const indices = {
+      cedula: headers.findIndex(
+        (h) =>
+          h.includes("cedula") ||
+          h.includes("identificacion") ||
+          h.includes("nit") ||
+          h.includes("cédula"),
+      ),
+      equipo: headers.findIndex((h) => h.includes("equipo")),
+    };
+
+    if (indices.cedula === -1 || indices.equipo === -1) {
+      console.error("No se encontraron las columnas necesarias");
+      abrirModal(`
+        <div class="modal-error">
+          <p><strong>Error:</strong> No se encontraron las columnas 'cedula' y 'equipo' en la hoja de cálculo.</p>
+          <p>Columnas encontradas: ${headers.join(", ")}</p>
+        </div>
+      `);
+      return null;
+    }
+
+    const id = identificacion.trim().toLowerCase();
+
+    for (let i = 1; i < lines.length; i++) {
+      const cells = lines[i]
+        .split(",")
+        .map((c) => c.trim().replace(/^["']|["']$/g, ""));
+      const cedulaCelda = cells[indices.cedula]?.toLowerCase().trim() || "";
+
+      if (cedulaCelda === id) {
+        return {
+          cedula: cells[indices.cedula] || "N/A",
+          equipo: cells[indices.equipo] || "N/A",
+        };
+      }
+    }
+
+    return null;
+  }
+
+  async function buscarDatosConReintentos(identificacion, url, intentos = 3) {
+    for (let i = 0; i < intentos; i++) {
+      try {
+        const datos = await buscarDatos(identificacion, url);
+        if (datos) return datos;
+      } catch (e) {
+        console.warn(`Intento ${i + 1} fallido:`, e);
+      }
+      await new Promise((r) => setTimeout(r, 800));
+    }
+    return null;
+  }
+
+  async function consultarEstado() {
+    const identificacion = document.getElementById("identificacion").value;
+
+    // Validar que hay identificación
+    if (!identificacion) {
+      abrirModal(`
+        <div class="modal-error">
+          <p><strong>Campo vacío</strong></p>
+          <p>Por favor ingresa tu número de identificación para realizar la consulta.</p>
+        </div>
+      `);
+      return;
+    }
+
+    // Mostrar loading en modal
+    abrirModal(`
+      <div class="modal-loading">
+        <p>Consultando información...</p>
+      </div>
+    `);
+
+    const datos = await buscarDatosConReintentos(identificacion, SHEET_URL);
+
+    if (!datos) {
+      // Mostrar error en modal
+      abrirModal(`
+        <div class="modal-error">
+          <p><strong>No se encontró información</strong></p>
+          <p>No se encontró información asociada a esta identificación. Por favor verifica el dato ingresado.</p>
+        </div>
+      `);
+      return;
+    }
+
+    // Mostrar resultado en modal
+    abrirModal(`
+      <div class="modal-resultado">
+        <h3>Información Encontrada</h3>
+        <div class="info-grid">
+          <div class="info-card">
+            <span class="info-label">Identificación:</span>
+            <span class="info-value">${datos.cedula}</span>
+          </div>
+          <div class="info-card">
+            <span class="info-label">Equipo:</span>
+            <span class="info-value">${datos.equipo}</span>
+          </div>
+        </div>
+      </div>
+    `);
+  }
+
+  function abrirModal(contenido) {
+    const modalBody = document.getElementById("modal-body");
+    modalBody.innerHTML = contenido;
+    document.getElementById("modal-overlay").style.display = "flex";
+  }
+
+  function cerrarModal() {
+    document.getElementById("modal-overlay").style.display = "none";
+    document.getElementById("modal-body").innerHTML = "";
+    // Limpiar el input al cerrar
+    document.getElementById("identificacion").value = "";
+  }
+
+  // Cerrar modal al hacer clic fuera del contenido
+  document
+    .getElementById("modal-overlay")
+    ?.addEventListener("click", function (e) {
+      if (e.target === this) {
+        cerrarModal();
+      }
+    });
+
+  // Permitir consulta con Enter
+  document
+    .getElementById("identificacion")
+    ?.addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        consultarEstado();
+      }
+    });
+
+  window.consultarEstado = consultarEstado;
+  window.cerrarModal = cerrarModal;
+</script>
