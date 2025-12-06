@@ -1,17 +1,16 @@
 ---
 import Layout1 from "../layouts/Layout1.astro";
-
 import Hero from "../sections/Hero.astro";
-import Section1 from "../sections/Section1.astro";
-import Section2 from "../sections/Section2.astro";
-import MisionVision from "../sections/Mision-vision.astro";
 ---
 
 <Layout1 title="HC Company S.A.S">
   <Hero />
+  <section id="economia-circular">
+    <img src="/img/economia_circular.jpg" alt="economía circular" />
+  </section>
   <section>
     <div class="flex-row">
-      <div class="nosotros flex-column">
+      <div class="flex-column info">
         <h2>¿Qué son los negocios verdes?</h2>
         <p>
           Contemplan las actividades económicas en las que se ofertan bienes o
@@ -21,16 +20,16 @@ import MisionVision from "../sections/Mision-vision.astro";
           como capital.
         </p>
 
-        <a href="https://www.minambiente.gov.co/negocios-verde"
-          >https://www.minambiente.gov.co/negocios-verde</a
+        <a href="https://www.minambiente.gov.co/negocios-verde" target="_blank"
+          >Negocios verdes</a
         >
         <a
           href="https://www.sostenibilidad.com/desarrollo-sostenible/en-que-consiste-la-economia-circular/"
-          >https://www.sostenibilidad.com/desarrollo-sostenible/en-que-consiste-la-economia-circular/</a
+          target="_blank">¿En qué consiste la economía circular?</a
         >
         <a
           href="https://www.andi.com.co/Uploads/Estrategia%20Nacional%20de%20EconA%CC%83%C2%B3mia%20Circular-2019%20Final.pdf_637176135049017259.pdf"
-          >https://www.andi.com.co/Uploads/Estrategia%20Nacional%20de%20EconA%CC%83%C2%B3mia%20Circular-2019%20Final.pdf_637176135049017259.pdf</a
+          target="_blank">Estrategia Nacional de Economía Circular</a
         >
         <a
           class="boton"
@@ -44,37 +43,56 @@ import MisionVision from "../sections/Mision-vision.astro";
 </Layout1>
 
 <style>
-  p {
+  #economia-circular {
+    background-color: white;
+  }
+
+  #economia-circular img {
+    width: 100%;
+    max-width: 400px;
+  }
+  /* Estilos para móviles (pantallas pequeñas) - Lo que tienes ahora */
+  section > div.flex-row {
+    flex-wrap: wrap;
+    row-gap: 20px;
+  }
+
+  .info {
     text-align: left;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .info a {
+    color: var(--clr-dark2);
+    text-decoration: underline;
+  }
+
+  .info a.boton {
+    background-color: var(--clr-dark);
+    color: var(--clr-white);
+    text-decoration: none;
   }
 
   img {
-    display: none;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
   }
 
-  a {
-  }
-
-  div.flex-row {
-    flex-wrap: wrap;
-  }
-
-  @media (min-width: 768px) {
-    .nosotros {
-      width: 40%;
-    }
-
+  /* --- Sección de Escritorio (Desktop) --- */
+  @media (min-width: 700px) {
+    /* Aquí definimos que texto e imagen se repartan el espacio */
+    .info,
     img {
-      display: block;
-      width: 55%;
-      height: auto;
-      aspect-ratio:;
-
-      border-radius: 10px;
+      width: 50%; /* Ocupan la mitad cada uno */
+      /* Opcional: Para asegurar que se alineen bien en la fila */
+      /* Esto asume que .flex-row ya tiene display: flex; */
     }
 
-    div.flex-row {
-      gap: 40px;
+    /* Puedes refinar la clase .info si necesitas espaciado */
+    .info {
+      padding-right: 20px; /* Ejemplo para separarlo de la imagen */
     }
   }
 </style>
