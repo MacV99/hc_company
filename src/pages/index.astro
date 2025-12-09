@@ -24,7 +24,33 @@ import MisionVision from "../sections/Mision-vision.astro";
 		</p>
 	</section>
 
-	<MisionVision />
+	<a></a>
+
+	<section id="servicios" class="flex-column">
+		<h1>nuestros servicios</h1>
+		<div class="flex-row">
+			<a class="service-card flex-column" href="/servicios/mantenimiento">
+				<img
+					src="/img/servicios/mantenimiento.jpg"
+					alt="MANTENIMIENTO PREVENTIVO - CORRECTIVO PREDICTIVO"
+				/>
+				<h4>MANTENIMIENTO PREVENTIVO - CORRECTIVO PREDICTIVO</h4>
+			</a>
+			<a class="service-card flex-column" href="/servicios/automatizacion">
+				<img
+					src="/img/servicios/automatizacion.jpg"
+					alt="AUTOMATIZACIÓN - RESTAURACIÓN ADAPTACIÓN - FÁBRICA - ASESORÍA"
+				/>
+				<h4>AUTOMATIZACIÓN - RESTAURACIÓN ADAPTACIÓN - FÁBRICA - ASESORÍA</h4>
+			</a>
+			<a class="service-card flex-column" href="">
+				<img src="/img/servicios/calificacion.jpg" alt="CALIFICACIÓN" />
+				<h4>CALIFICACIÓN</h4>
+			</a>
+		</div>
+	</section>
+
+	<!-- <MisionVision /> -->
 
 	<section id="equipos">
 		<div class="flex-column">
@@ -41,10 +67,47 @@ import MisionVision from "../sections/Mision-vision.astro";
 		gap: 10px;
 	}
 
-	#nosotros h1 {
+	h1 {
 		font-size: 1.5rem;
 		line-height: normal;
 		/* margin-bottom: 10px; */
+	}
+
+	#servicios > div {
+		flex-wrap: wrap;
+		gap: 15px;
+		align-items: stretch;
+		width: 100%;
+	}
+
+	#servicios .service-card {
+		background-color: #fff;
+		width: 100%;
+		max-width: 300px;
+		border-radius: 10px;
+		text-align: center;
+		overflow: hidden;
+		transition: var(--transition);
+		border: solid 1px transparent;
+	}
+
+	#servicios .service-card:hover {
+		border: solid 1px var(--clr-gray);
+	}
+
+	#servicios .service-card img {
+		width: 100%;
+		height: 180px;
+		object-fit: cover;
+		margin-bottom: auto;
+	}
+
+	#servicios .service-card h4 {
+		padding: 10px 15px;
+		text-align: center;
+		margin-bottom: auto;
+		color: var(--clr-dark2);
+		font-size: 0.88rem;
 	}
 
 	#equipos {
@@ -57,7 +120,7 @@ import MisionVision from "../sections/Mision-vision.astro";
 	}
 
 	@media (min-width: 768px) {
-		#nosotros h1 {
+		h1 {
 			font-size: 2rem;
 		}
 	}

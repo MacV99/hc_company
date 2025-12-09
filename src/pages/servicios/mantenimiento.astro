@@ -1,0 +1,203 @@
+---
+import Layout1 from "../../layouts/Layout1.astro";
+
+import Hero2 from "../../sections/Hero2.astro";
+---
+
+<Layout1
+  title="MANTENIMIENTO PREVENTIVO - CORRECTIVO PREDICTIVO | HC Company S.A.S"
+>
+  <Hero2 title_site="MANTENIMIENTO PREVENTIVO - CORRECTIVO PREDICTIVO" />
+
+  <section>
+    <div class="flex-row">
+      <div class="flex-column info">
+        <h2>Alcance de Servicio Laboratorios</h2>
+        <ul class="flex-row">
+          <li>Biología</li>
+          <li>Biología Molecular</li>
+          <li>Citogenética</li>
+          <li>Botánica - Herbario</li>
+          <li>Limnología</li>
+          <li>Ictiología</li>
+          <li>Análisis de Suelos</li>
+          <li>Análisis Químico</li>
+          <li>Análisis de Aguas</li>
+          <li>Análisis de Semillas</li>
+          <li>Fisiología Animal</li>
+          <li>Fisiología Vegetal</li>
+          <li>Geología</li>
+          <li>Lodos</li>
+          <li>Materiales</li>
+          <li>Hidráulica</li>
+          <li>Entomología</li>
+        </ul>
+      </div>
+      <img src="/img/servicios/calificacion.jpg" alt="banner" />
+    </div>
+  </section>
+
+  <section>
+    <div class="flex-row">
+      <div class="flex-column info">
+        <h2>
+          Equipo de uso en Mediciones y Análisis de Sustancias y Materiales
+        </h2>
+        <p>
+          Balanzas, Autoclaves, Cabinas de Aislamiento, Cabinas de Flujo Laminar
+          y Bioseguridad, Mantas, Hornos, Bloques de Calentamiento, Muflas, DBO,
+          Centrifugas, Rotaevaporadores, Deshumidificadores, Neveras,
+          Refractómetros, Floculadores, Tamizadoras, Baños maría, Destiladores,
+          Planchas de Calentamiento.
+        </p>
+      </div>
+      <img src="/img/servicios/mantenimiento.jpg" alt="banner" />
+    </div>
+  </section>
+
+  <section class="sectioncards flex-row">
+    <div class="flex-column">
+      <img src="/img/mantenimiento/analizador.jpg" alt="" />
+      <h4>Alimentos - Leches - Carnes</h4>
+      <p>
+        Batidoras, Descremadoras, analizadores , Embutidoras, Sierras sin Fin,
+        Cámaras Climáticas, Molinos, Hornos, Estufas a gas, Empacadora al Vacío,
+        Selladoras, Tajadoras, Baños de Cocción, Centrífugas Guerber.
+      </p>
+    </div>
+    <div class="flex-column">
+      <img src="/img/mantenimiento/agitador.jpg" alt="" />
+      <h4>Alimentos - Leches - Carnes</h4>
+      <p>
+        Agitador Orbital, Destilador de Nitrógeno, Cámara de Electroforesis,
+        Estufas de Secado, Fusiómetros, Destiladores de Kendall. Micrótomos.
+        Campanas Extractoras.
+      </p>
+    </div>
+    <div class="flex-column">
+      <img src="/img/mantenimiento/mufla.jpg" alt="" />
+      <h4>Alimentos - Leches - Carnes</h4>
+      <p>
+        Viscosímetros Cinemáticos, Saybolt, Baños de Presión Reid, Muflas, Karl
+        Fischer, Flash Point, Destilador de Crudos Generadores de Humedad,
+        Permeámetros, Presión Capilar.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <img style="max-width: 300px;" src="/img/mantenimiento/marcas.jpg" alt="" />
+  </section>
+
+  <section id="instrumentos">
+    <div class="flex-row">
+      <div class="flex-column info">
+        <h2>Instrumentos Ópticos</h2>
+        <ul>
+          <h3>Microscopios:</h3>
+          <li>Compuestos</li>
+          <li>Invertidos</li>
+          <li>Contraste de Fases</li>
+          <li>Digitales</li>
+          <li>De Fluorescencia</li>
+          <li>Quirúrgicos</li>
+        </ul>
+        <ul>
+          <h3>Refractómetros de mesa</h3>
+          <li>Colposcopios</li>
+          <li>Estereoscopios</li>
+        </ul>
+        <ul>
+          <h3>Restauración</h3>
+          <li>Adaptación sistema regulable iluminación led</li>
+        </ul>
+      </div>
+      <img src="/img/servicios/mantenimiento.jpg" alt="banner" />
+    </div>
+  </section>
+
+  <section class="flex-column restauracion">
+    <h2>Restauración y adaptación de sistema de iluminación LED</h2>
+    <div class="flex-row">
+      <img src="/img/mantenimiento/1.jpg" alt="" />
+      <img src="/img/mantenimiento/2.jpg" alt="" />
+      <img src="/img/mantenimiento/3.jpg" alt="" />
+      <img src="/img/mantenimiento/4.jpg" alt="" />
+    </div>
+  </section>
+</Layout1>
+
+<style>
+  section > div.flex-row {
+    flex-wrap: wrap;
+    row-gap: 20px;
+    /* align-items: stretch; */
+  }
+
+  section:nth-child(even) {
+    background-color: #fff;
+  }
+
+  .info {
+    text-align: left;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+
+  ul {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  li {
+    width: 50%;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+
+  .sectioncards {
+    flex-wrap: wrap;
+  }
+
+  .sectioncards div {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    background-color: #fff;
+  }
+
+  .sectioncards div p {
+    margin-top: 10px;
+  }
+
+  #instrumentos li {
+    width: auto;
+  }
+
+  section h2 {
+    text-align: center;
+  }
+
+  .restauracion img {
+    height: 160px;
+    width: auto;
+    border-radius: 8px;
+    margin: 0 10px;
+  }
+
+  @media (min-width: 700px) {
+    .info,
+    img {
+      width: 50%;
+    }
+
+    .info {
+      padding-right: 50px;
+    }
+  }
+</style>

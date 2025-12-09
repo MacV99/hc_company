@@ -31,7 +31,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 100px;
 }
 
 body {
@@ -57,6 +57,7 @@ li {
 
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 i {
@@ -110,7 +111,7 @@ footer {
 
 section>*,
 footer>* {
-  max-width: 900px;
+  max-width: 1000px;
 }
 
 a.boton,
