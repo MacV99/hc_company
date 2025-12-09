@@ -1,0 +1,300 @@
+---
+import Layout1 from "../../layouts/Layout1.astro";
+import Hero2 from "../../sections/Hero2.astro";
+---
+
+<Layout1 title="CALIFICACIÓN | HC Company S.A.S">
+  <Hero2 title_site="CALIFICACIÓN: IQ - OQ - PQ" />
+
+  <section class="calificacion-section flex-column">
+    <div class="container flex-column">
+      <!-- Primera Tabla: Calificación IQ - OQ - PQ -->
+      <div class="table-wrapper">
+        <table class="tabla-calificacion">
+          <thead>
+            <tr>
+              <th>Calificación</th>
+              <th>IQ</th>
+              <th>OQ</th>
+              <th>PQ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Calificación"><strong>Descripción</strong></td>
+              <td data-label="IQ"
+                >Verificación de instalación correcta y documentación</td
+              >
+              <td data-label="OQ">Pruebas de funcionamiento y seguridad</td>
+              <td data-label="PQ">Evaluación del rendimiento en uso real</td>
+            </tr>
+            <tr>
+              <td data-label="Calificación"><strong>Objetivo</strong></td>
+              <td data-label="IQ"
+                >Asegurar que el equipo está instalado adecuadamente antes del
+                uso</td
+              >
+              <td data-label="OQ"
+                >Confirmar que el equipo funciona según sus especificaciones
+                técnicas</td
+              >
+              <td data-label="PQ"
+                >Garantizar que el equipo cumple con los requisitos de calidad a
+                largo plazo</td
+              >
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Segunda Tabla: Verificación -->
+      <div class="table-wrapper">
+        <table class="tabla-verificacion">
+          <thead>
+            <tr>
+              <th>Verificación</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Campo"><strong>Descripción</strong></td>
+              <td data-label="Contenido"
+                >Comparación de las mediciones o rendimiento del equipo con un
+                estándar de referencia (patrón) calibrado y certificado.</td
+              >
+            </tr>
+            <tr>
+              <td data-label="Campo"><strong>Objetivo</strong></td>
+              <td data-label="Contenido"
+                >Asegurar que el equipo funcione dentro de los límites
+                establecidos y con la precisión requerida.</td
+              >
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Imagen -->
+      <div class="imagen-container">
+        <img
+          src="https://lirp.cdn-website.com/711523b1/dms3rep/multi/opt/WhatsApp+Image+2025-06-17+at+7.40.31+PM-1920w.jpeg"
+          alt="Persona verificando temperatura con termómetro en recipiente de acero inoxidable"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+</Layout1>
+
+<style>
+  .calificacion-section {
+    padding: 1.5rem 1rem;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    gap: 1.5rem;
+    margin: 0 auto;
+  }
+
+  .table-wrapper {
+    width: 100%;
+    overflow-x: hidden;
+    border-radius: 12px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead {
+    background-color: var(--clr-dark);
+    color: var(--clr-white);
+  }
+
+  th {
+    padding: 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  tbody tr {
+    background-color: #fff;
+  }
+
+  td {
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    border-bottom: 1px solid var(--clr-gray);
+    color: var(--clr-dark2);
+  }
+
+  td::before {
+    color: var(--clr-dark) !important;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  td strong {
+    color: var(--clr-dark);
+  }
+
+  .imagen-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .imagen-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+  }
+
+  /* RESPONSIVE - Móviles pequeños (hasta 600px) */
+  @media (max-width: 600px) {
+    /* Tabla Calificación - Vista de cards en móvil */
+    .tabla-calificacion thead {
+      display: none;
+    }
+
+    .tabla-calificacion tbody tr {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+      /* border: 1px solid #e0e0e0; */
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .tabla-calificacion tbody tr td {
+      display: flex;
+      flex-direction: column;
+      padding: 0.75rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .tabla-calificacion tbody tr td:last-child {
+      border-bottom: none;
+    }
+
+    .tabla-calificacion tbody tr td::before {
+      content: attr(data-label);
+      font-weight: 600;
+      color: var(--clr-dar2);
+      margin-bottom: 0.5rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Tabla Verificación en móvil */
+    .tabla-verificacion thead th:first-child {
+      display: block;
+    }
+
+    .tabla-verificacion thead th:last-child {
+      display: none;
+    }
+
+    .tabla-verificacion tbody tr {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tabla-verificacion tbody tr td {
+      display: block;
+      width: 100%;
+    }
+
+    .tabla-verificacion tbody tr td:first-child {
+      font-weight: 600;
+      background-color: #f8f9fa;
+    }
+  }
+
+  /* RESPONSIVE - Tablets (601px - 768px) */
+  @media (min-width: 601px) and (max-width: 768px) {
+    .calificacion-section {
+      padding: 2rem 1.5rem;
+    }
+
+    .container {
+      gap: 2rem;
+    }
+
+    th {
+      padding: 0.875rem;
+      font-size: 0.95rem;
+    }
+
+    td {
+      padding: 0.875rem;
+      font-size: 0.9rem;
+    }
+
+    .imagen-container {
+      padding: 1.25rem;
+    }
+
+    /* Tablas con scroll horizontal si es necesario */
+    table {
+      min-width: 600px;
+    }
+  }
+
+  /* RESPONSIVE - Desktop (769px en adelante) */
+  @media (min-width: 769px) {
+    .calificacion-section {
+      padding: 3rem 2rem;
+    }
+
+    .container {
+      gap: 2.5rem;
+    }
+
+    th {
+      padding: 1rem;
+      font-size: 1rem;
+    }
+
+    td {
+      padding: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .imagen-container {
+      padding: 1.5rem;
+    }
+  }
+
+  /* RESPONSIVE - Desktop grande (1024px en adelante) */
+  @media (min-width: 1024px) {
+    .calificacion-section {
+      padding: 4rem 2rem;
+    }
+
+    .container {
+      gap: 3rem;
+    }
+
+    th {
+      padding: 1.25rem;
+      font-size: 1.05rem;
+    }
+
+    td {
+      padding: 1.25rem;
+      font-size: 1rem;
+    }
+  }
+</style>
