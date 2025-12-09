@@ -10,10 +10,101 @@ import Hero2 from "../../sections/Hero2.astro";
   <Hero2
     title_site="AUTOMATIZACIÓN - RESTAURACIÓN ADAPTACIÓN - FÁBRICA - ASESORÍA"
   />
+
+  <section>
+    <div class="flex-row">
+      <div class="flex-column info">
+        <p>
+          Ha sido valorado su equipo como obsoleto, inservible y/o no cumple?
+        </p>
+        <p>
+          Requiere diseñar y elaborar mobiliario y equipo para ejecutar sus
+          proyectos?
+        </p>
+        <a
+          class="boton"
+          href="https://wa.me/573136536775?text=Hola%20quiero%20información"
+          target="_blank">CONTÁCTENOS</a
+        >
+      </div>
+      <img src="/img/servicios/calificacion.jpg" alt="banner" />
+    </div>
+  </section>
+
+  <section id="fotos" class="flex-row">
+    <div class="flex-column">
+      <h3>Corrección</h3>
+      <img src="/img/automatizacion/1.jpg" alt="" />
+    </div>
+    <div class="flex-column">
+      <h3>Restauración</h3>
+      <img src="/img/automatizacion/2.jpg" alt="" />
+    </div>
+    <div class="flex-column">
+      <h3>Automatización</h3>
+      <img src="/img/automatizacion/3.jpg" alt="" />
+    </div>
+  </section>
 </Layout1>
 
 <style>
-  body {
+  section > div.flex-row {
+    flex-wrap: wrap;
+    row-gap: 20px;
+  }
+
+  .info {
+    text-align: left;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+
+  section h2 {
+    text-align: center;
+  }
+
+  .info a.boton {
+    background-color: var(--clr-dark);
+    color: var(--clr-white);
+    text-decoration: none;
+  }
+
+  #fotos {
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 20px;
     background-color: #fff;
+  }
+
+  #fotos div {
+    gap: 10px;
+    width: 100%;
+  }
+
+  @media (min-width: 700px) {
+    .info,
+    img {
+      width: 50%;
+    }
+
+    .info {
+      padding-right: 50px;
+    }
+
+    #fotos div {
+      width: fit-content;
+      max-width: 280px;
+    }
+
+    #fotos img {
+      width: 100%;
+    }
   }
 </style>

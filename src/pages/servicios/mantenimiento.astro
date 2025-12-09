@@ -38,7 +38,7 @@ import Hero2 from "../../sections/Hero2.astro";
   </section>
 
   <section>
-    <div class="flex-row">
+    <div class="flex-row inverse">
       <div class="flex-column info">
         <h2>
           Equipo de uso en Mediciones y Análisis de Sustancias y Materiales
@@ -131,7 +131,6 @@ import Hero2 from "../../sections/Hero2.astro";
   section > div.flex-row {
     flex-wrap: wrap;
     row-gap: 20px;
-    /* align-items: stretch; */
   }
 
   section:nth-child(even) {
@@ -197,7 +196,15 @@ import Hero2 from "../../sections/Hero2.astro";
     }
 
     .info {
-      padding-right: 50px;
+      padding-right: 10px;
+    }
+
+    .inverse {
+      flex-direction: row-reverse;
+    }
+
+    .inverse .info {
+      padding-left: 30px;
     }
   }
 </style>
