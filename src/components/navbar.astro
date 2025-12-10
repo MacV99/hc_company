@@ -3,7 +3,7 @@
 
   <div class="flex-column" id="overlay">
     <a href="/">Inicio</a>
-    <a href="#servicios">Servicios</a>
+    <a href="#servicios" class="internal-link">Servicios</a>
     <a href="/planeta_hogar">Planeta hogar</a>
     <a href="/reporte">Reporte</a>
     <a href="/clientes">clientes</a>
@@ -98,6 +98,7 @@
     const overlay = document.getElementById("overlay");
     const openBtn = document.querySelector(".open-nav");
     const closeBtn = document.querySelector(".close-nav");
+    const allLinks = overlay?.querySelectorAll("a");
 
     const open = () => {
       if (overlay) {
@@ -111,6 +112,34 @@
 
     openBtn?.addEventListener("click", open);
     closeBtn?.addEventListener("click", close);
+
+    // Cerrar menú al hacer clic en cualquier enlace (en móvil)
+    allLinks?.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        // Si es un enlace interno (#servicios), verificar si la sección existe
+        if (link.classList.contains("internal-link")) {
+          const targetId = link.getAttribute("href").substring(1); // Quitar el #
+          const targetSection = document.getElementById(targetId);
+
+          if (!targetSection) {
+            // La sección no existe, redirigir a la página principal (móvil y desktop)
+            e.preventDefault();
+            window.location.href = "/#" + targetId;
+            return;
+          }
+
+          // La sección existe, cerrar el menú solo en móvil
+          if (window.innerWidth < 700) {
+            close();
+          }
+        } else {
+          // Es un enlace normal, cerrar el menú solo en móvil
+          if (window.innerWidth < 700) {
+            close();
+          }
+        }
+      });
+    });
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") close();
