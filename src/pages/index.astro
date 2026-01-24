@@ -2,9 +2,7 @@
 import Layout1 from "../layouts/Layout1.astro";
 
 import Hero from "../sections/Hero.astro";
-import Section1 from "../sections/Section1.astro";
-import Section2 from "../sections/Section2.astro";
-import MisionVision from "../sections/Mision-vision.astro";
+import Equipos from "../components/equipos.astro";
 ---
 
 <Layout1 title="HC Company S.A.S">
@@ -23,8 +21,6 @@ import MisionVision from "../sections/Mision-vision.astro";
 			requerimientos e intereses de nuestros clientes.
 		</p>
 	</section>
-
-	<a></a>
 
 	<section id="servicios" class="flex-column">
 		<h1>nuestros servicios</h1>
@@ -50,14 +46,7 @@ import MisionVision from "../sections/Mision-vision.astro";
 		</div>
 	</section>
 
-	<!-- <MisionVision /> -->
-
-	<section id="equipos">
-		<div class="flex-column">
-			<h2>+5.500</h2>
-			<p>EQUIPOS INTERVENIDOS</p>
-		</div>
-	</section>
+	<Equipos />
 </Layout1>
 
 <style>
@@ -108,15 +97,6 @@ import MisionVision from "../sections/Mision-vision.astro";
 		margin-bottom: auto;
 		color: var(--clr-dark2);
 		font-size: 0.88rem;
-	}
-
-	#equipos {
-		background-color: #fff;
-	}
-
-	#equipos h2 {
-		font-size: 3rem;
-		margin-bottom: 0px;
 	}
 
 	@media (min-width: 768px) {

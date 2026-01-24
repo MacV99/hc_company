@@ -1,0 +1,95 @@
+<section id="equipos">
+  <div class="flex-column">
+    <h2 id="counter" data-target="5500">0</h2>
+    <p>EQUIPOS INTERVENIDOS</p>
+  </div>
+</section>
+
+<style>
+  #equipos {
+    background-color: #fff;
+  }
+
+  #equipos h2 {
+    font-size: 3rem;
+    margin-bottom: 0px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Animación Roll Up */
+  #equipos h2.rollUp {
+    animation: rollUpAnim 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  @keyframes rollUpAnim {
+    0% {
+      transform: translateY(100px) rotateX(-90deg);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0) rotateX(0);
+      opacity: 1;
+    }
+  }
+
+  @media (min-width: 768px) {
+    #equipos h2 {
+      font-size: 3.5rem;
+    }
+  }
+</style>
+
+<script>
+  // @ts-nocheck
+  document.addEventListener("DOMContentLoaded", () => {
+    const counter = document.getElementById("counter");
+    const target = parseInt(counter.getAttribute("data-target"));
+    let hasAnimated = false;
+
+    const animateCounter = () => {
+      // Añadir clase de animación
+      counter.classList.add("rollUp");
+
+      const duration = 2000;
+      const startTime = performance.now();
+
+      const updateCounter = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Ease out para suavidad
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(easedProgress * target);
+
+        counter.textContent = `+${current.toLocaleString("es-CO")}`;
+
+        if (progress < 1) {
+          requestAnimationFrame(updateCounter);
+        } else {
+          counter.textContent = `+${target.toLocaleString("es-CO")}`;
+          // Remover la clase después de la animación
+          setTimeout(() => {
+            counter.classList.remove("rollUp");
+          }, 500);
+        }
+      };
+
+      requestAnimationFrame(updateCounter);
+    };
+
+    // Intersection Observer - se activa cuando es visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            animateCounter();
+            hasAnimated = true;
+          }
+        });
+      },
+      { threshold: 0.5 },
+    );
+
+    observer.observe(document.getElementById("equipos"));
+  });
+</script>
