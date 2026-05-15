@@ -3,7 +3,12 @@ import Navbar from "../components/navbar.astro";
 ---
 
 <header class="flex-row">
-  <a href="/"><img src="/img/logo.jpg" alt="img-logo" /></a>
+  <div class="logo-group">
+    <a href="/"><img src="/img/logo_icon.avif" alt="img-logo" /></a>
+    <a href="/" class="text-logo"
+      ><img src="/img/logo_text.avif" alt="img-logo" /></a
+    >
+  </div>
 
   <!-- <Navbar /> -->
   <Navbar />
@@ -30,17 +35,30 @@ import Navbar from "../components/navbar.astro";
     z-index: 100;
   }
 
-  header a {
+  .logo-group {
+    display: flex;
+    align-items: center;
     height: 100%;
     margin-right: auto;
+    gap: 16px;
+  }
+
+  header a {
+    height: 100%;
     display: flex;
+    align-items: center;
   }
 
   header img {
-    height: 110%;
+    height: 100%;
     width: auto;
     border-radius: 8px;
-    /* border: 1px solid var(--clr-gray); */
+    transform: scale(1.6) translateY(5px);
+  }
+
+  header a.text-logo {
+    transform: scale(1.9) translateY(-3px);
+    margin-left: 60px;
   }
 
   /* ICONO CARRITO (global porque lo manipulamos con JS) */
