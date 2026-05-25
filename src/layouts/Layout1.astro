@@ -3,21 +3,124 @@ import "../styles/global.css";
 import Footer from "../sections/Footer.astro";
 import Header from "../sections/Header.astro";
 
-const { title } = Astro.props;
+const {
+  title,
+  description = "HC Company S.A.S ofrece mantenimiento preventivo, correctivo y predictivo de equipos de laboratorio en Colombia. Servicio integral, profesional y a nivel nacional.",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL("/img/hero.jpg", Astro.site);
 ---
 
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/img/logo.jpg" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- SEO primario -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / redes sociales -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="HC Company S.A.S" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Schema.org — LocalBusiness -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "HC Company S.A.S",
+        "description": "Empresa especializada en mantenimiento preventivo, correctivo y predictivo de equipos de laboratorio, automatización, restauración y calificación IQ-OQ-PQ en Colombia.",
+        "url": "https://hccompanysas.com",
+        "logo": "https://hccompanysas.com/img/logo.jpg",
+        "image": "https://hccompanysas.com/img/hero.jpg",
+        "telephone": "+573136536775",
+        "email": "comercial@hccompanysas.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Cali",
+          "addressRegion": "Valle del Cauca",
+          "addressCountry": "CO"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "3.4516",
+          "longitude": "-76.5319"
+        },
+        "areaServed": {
+          "@type": "Country",
+          "name": "Colombia"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "12:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "14:00",
+            "closes": "17:00"
+          }
+        ],
+        "sameAs": [
+          "https://www.instagram.com/hccompanysas/",
+          "https://www.facebook.com/Comercialhccompanysas/"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Servicios de equipos de laboratorio",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Mantenimiento Preventivo, Correctivo y Predictivo de Equipos de Laboratorio"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Automatización, Restauración y Adaptación de Equipos"
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Calificación IQ - OQ - PQ de Equipos de Laboratorio"
+              }
+            }
+          ]
+        }
+      }
+    </script>
+
+    <!-- Bootstrap Icons -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
     />
-
-    <title>{title}</title>
   </head>
 
   <body>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hccompanysas.com/sitemap-index.xml

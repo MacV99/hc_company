@@ -5,11 +5,14 @@ import Hero from "../sections/Hero.astro";
 import Equipos from "../components/equipos.astro";
 ---
 
-<Layout1 title="HC Company S.A.S">
+<Layout1
+  title="Mantenimiento de Equipos de Laboratorio en Colombia | HC Company S.A.S"
+  description="HC Company S.A.S: mantenimiento preventivo, correctivo y predictivo de equipos de laboratorio, automatización, restauración y calificación IQ-OQ-PQ. Servicio profesional a nivel nacional desde Cali, Colombia."
+>
 	<Hero />
 
 	<section id="nosotros" class="flex-column">
-		<h1>SERVICIO ESPECIALIZADO PARA EQUIPOS DE LABORATORIO</h1>
+		<h2>SERVICIO ESPECIALIZADO PARA EQUIPOS DE LABORATORIO</h2>
 		<p>
 			Nuestros esfuerzos están encaminados a satisfacer las necesidades de
 			mantenimiento preventivo, correctivo, predictivo, ajuste y calificación y
@@ -23,25 +26,25 @@ import Equipos from "../components/equipos.astro";
 	</section>
 
 	<section id="servicios" class="flex-column">
-		<h1>nuestros servicios</h1>
+		<h2>nuestros servicios</h2>
 		<div class="flex-row">
 			<a class="service-card flex-column" href="/servicios/mantenimiento">
 				<img
 					src="/img/servicios/mantenimiento.jpg"
-					alt="MANTENIMIENTO PREVENTIVO - CORRECTIVO PREDICTIVO"
+					alt="Mantenimiento preventivo, correctivo y predictivo de equipos de laboratorio"
 				/>
-				<h4>MANTENIMIENTO PREVENTIVO - CORRECTIVO PREDICTIVO</h4>
+				<h3>MANTENIMIENTO PREVENTIVO - CORRECTIVO PREDICTIVO</h3>
 			</a>
 			<a class="service-card flex-column" href="/servicios/automatizacion">
 				<img
 					src="/img/servicios/automatizacion.jpg"
-					alt="AUTOMATIZACIÓN - RESTAURACIÓN ADAPTACIÓN - FÁBRICA - ASESORÍA"
+					alt="Automatización, restauración y adaptación de equipos de laboratorio"
 				/>
-				<h4>AUTOMATIZACIÓN - RESTAURACIÓN ADAPTACIÓN - FÁBRICA - ASESORÍA</h4>
+				<h3>AUTOMATIZACIÓN - RESTAURACIÓN ADAPTACIÓN - FÁBRICA - ASESORÍA</h3>
 			</a>
 			<a class="service-card flex-column" href="/servicios/calificacion">
-				<img src="/img/servicios/calificacion.jpg" alt="CALIFICACIÓN" />
-				<h4>CALIFICACIÓN</h4>
+				<img src="/img/servicios/calificacion.jpg" alt="Calificación IQ OQ PQ de equipos de laboratorio" />
+				<h3>CALIFICACIÓN</h3>
 			</a>
 		</div>
 	</section>
@@ -56,10 +59,9 @@ import Equipos from "../components/equipos.astro";
 		gap: 10px;
 	}
 
-	h1 {
+	h2 {
 		font-size: 1.5rem;
 		line-height: normal;
-		/* margin-bottom: 10px; */
 	}
 
 	#servicios > div {
@@ -91,7 +93,7 @@ import Equipos from "../components/equipos.astro";
 		margin-bottom: auto;
 	}
 
-	#servicios .service-card h4 {
+	#servicios .service-card h3 {
 		padding: 10px 15px;
 		text-align: center;
 		margin-bottom: auto;
@@ -100,7 +102,7 @@ import Equipos from "../components/equipos.astro";
 	}
 
 	@media (min-width: 768px) {
-		h1 {
+		h2 {
 			font-size: 2rem;
 		}
 	}
