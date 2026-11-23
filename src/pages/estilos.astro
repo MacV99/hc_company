@@ -1,0 +1,501 @@
+---
+// Muestrario: todas las piezas y valores de la base en un solo lugar.
+// Página interna: no está en el menú ni la muestran los buscadores. Pieza nueva = se agrega aquí.
+import Layout1 from "../layouts/Layout1.astro";
+import Tema from "../components/tema.astro";
+import TituloSeccion from "../components/titulo-seccion.astro";
+import Select from "../components/ui/Select.astro";
+import DatePicker from "../components/ui/DatePicker.astro";
+import Modal from "../components/ui/Modal.astro";
+import Menu from "../components/ui/Menu.astro";
+import PasswordInput from "../components/ui/PasswordInput.astro";
+import EmailInput from "../components/ui/EmailInput.astro";
+
+const colores = [
+  { nombre: "Fondo", token: "bg" },
+  { nombre: "Superficie", token: "surface" },
+  { nombre: "Hundida", token: "surface-sunken" },
+  { nombre: "Borde", token: "border" },
+  { nombre: "Borde fuerte", token: "border-strong" },
+  { nombre: "Texto", token: "text" },
+  { nombre: "Texto 2", token: "text-2" },
+  { nombre: "Principal", token: "primary" },
+  { nombre: "Fondo principal", token: "primary-bg" },
+  { nombre: "Color de vida", token: "accent" },
+  { nombre: "De vida, texto", token: "accent-text" },
+  { nombre: "Éxito", token: "success" },
+  { nombre: "Aviso", token: "warning" },
+  { nombre: "Peligro", token: "danger" },
+];
+
+const letras = ["3xl", "2xl", "xl", "lg", "md", "sm", "xs"];
+const espacios = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const esquinas = ["sm", "md", "lg", "pill"];
+const sombras = ["sm", "md", "lg"];
+
+const CIUDADES = ["Bogotá", "Medellín", "Cali", "Barranquilla", "Cartagena", "Bucaramanga", "Pereira", "Manizales", "Neiva", "Ibagué", "Pasto"].map((c) => ({ value: c, label: c }));
+const ACCIONES = [
+  { value: "ver", label: "Ver", icon: "bi-eye" },
+  { value: "descargar", label: "Descargar", icon: "bi-download" },
+  { separator: true },
+  { value: "borrar", label: "Borrar", icon: "bi-trash", danger: true },
+];
+---
+
+<Layout1 title="Estilos" oculta>
+  <section class="muestrario">
+    <header class="cabeza flex-column">
+      <span class="eyebrow">Página interna</span>
+      <h1>Estilos</h1>
+      <p>Todas las piezas de la base en un solo lugar. Prueba el tema claro y oscuro:</p>
+      <Tema />
+    </header>
+
+    <div class="card bloque flex-column">
+      <h2>Colores</h2>
+      <ul class="colores">
+        {
+          colores.map(({ nombre, token }) => (
+            <li class="flex-column">
+              <span class="muestra" data-color={token} />
+              <strong>{nombre}</strong>
+              <code>--clr-{token}</code>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="card bloque flex-column">
+      <h2>Letra</h2>
+      <ul class="letras flex-column">
+        {
+          letras.map((t) => (
+            <li class="flex-row">
+              <code>{t}</code>
+              <span data-letra={t}>El veloz murciélago hindú</span>
+            </li>
+          ))
+        }
+      </ul>
+      <h1>Título 1</h1>
+      <h2>Título 2</h2>
+      <h3>Título 3</h3>
+      <span class="eyebrow">Etiqueta pequeña</span>
+      <p>Párrafo de lectura. Texto normal en minúsculas, sin cursiva, con buen aire entre renglones.</p>
+      <a class="link" href="#">Enlace <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+    </div>
+
+    <div class="card bloque flex-column">
+      <h2>Botones</h2>
+      <div class="fila">
+        <button class="btn btn-primary" type="button">Principal</button>
+        <button class="btn btn-accent" type="button">Destacado</button>
+        <button class="btn btn-ghost" type="button">Secundario</button>
+        <button class="btn btn-subtle" type="button">Suave</button>
+        <button class="btn btn-danger" type="button">Peligro</button>
+      </div>
+      <div class="fila">
+        <button class="btn btn-accent btn-lg" type="button"><i class="bi bi-whatsapp" aria-hidden="true"></i> Grande</button>
+        <button class="btn btn-primary btn-sm" type="button">Pequeño</button>
+        <button class="btn btn-ghost btn-icon" type="button" aria-label="Descargar" data-tip="Descargar" data-tip-side="top"><i class="bi bi-download" aria-hidden="true"></i></button>
+        <button class="btn btn-primary" type="button" disabled>Apagado</button>
+        <button class="btn btn-primary" type="button" aria-busy="true"><span class="spinner"></span> Guardando…</button>
+      </div>
+    </div>
+
+    <div class="card bloque flex-column">
+      <h2>Etiquetas y avisos</h2>
+      <div class="fila">
+        <span class="badge primary">Nuevo</span>
+        <span class="badge success">Listo</span>
+        <span class="badge warning">Pendiente</span>
+        <span class="badge danger">Vencido</span>
+        <i class="bi bi-briefcase-fill icon-box" aria-hidden="true"></i>
+        <i class="bi bi-gear-fill icon-box lg" aria-hidden="true"></i>
+      </div>
+      <div class="callout info"><i class="bi bi-info-circle" aria-hidden="true"></i><div><p class="callout-title">Para tener en cuenta</p><p>Así se ve un aviso dentro de la página.</p></div></div>
+      <div class="callout success"><i class="bi bi-check2-circle" aria-hidden="true"></i><div>Tu mensaje llegó bien.</div></div>
+      <div class="callout warning"><i class="bi bi-exclamation-triangle" aria-hidden="true"></i><div>Te falta un dato por llenar.</div></div>
+      <div class="callout danger"><i class="bi bi-exclamation-octagon" aria-hidden="true"></i><div>Algo falló. Intenta de nuevo en un momento.</div></div>
+    </div>
+
+    <div class="card bloque flex-column">
+      <h2>Campos</h2>
+      <form class="form-grid" novalidate>
+        <div class="field">
+          <label for="e-nombre">Nombre</label>
+          <input id="e-nombre" class="input" autocomplete="off" placeholder="Tu nombre completo" />
+          <span class="hint">Texto de ayuda debajo del campo.</span>
+        </div>
+        <EmailInput id="e-correo" />
+        <div class="field">
+          <label for="e-telefono">Teléfono</label>
+          <input id="e-telefono" class="input tnum" type="text" inputmode="numeric" autocomplete="off" placeholder="Solo números" />
+        </div>
+        <div class="field">
+          <label for="e-clave">Contraseña</label>
+          <PasswordInput id="e-clave" name="clave" autocomplete="new-password" placeholder="Mínimo 8 letras o números" />
+        </div>
+        <div class="field">
+          <span class="label">Buscar</span>
+          <label class="input-icon">
+            <i class="bi bi-search" aria-hidden="true"></i>
+            <input class="input" type="search" placeholder="Buscar…" autocomplete="off" aria-label="Buscar" />
+          </label>
+        </div>
+        <div class="field">
+          <label for="e-apagado">Apagado</label>
+          <input id="e-apagado" class="input" value="No se puede cambiar" disabled />
+        </div>
+        <div class="field span-2">
+          <label for="e-mensaje">Mensaje</label>
+          <textarea id="e-mensaje" class="textarea" placeholder="Escribe aquí…"></textarea>
+        </div>
+      </form>
+    </div>
+
+    <div class="card bloque flex-column">
+      <h2>Listas y fecha</h2>
+      <div class="form-grid">
+        <div class="field">
+          <span class="label">Lista corta</span>
+          <Select options={CIUDADES.slice(0, 4)} placeholder="Selecciona una ciudad" label="Ciudad" />
+        </div>
+        <div class="field">
+          <span class="label">Lista con buscador</span>
+          <Select options={CIUDADES} placeholder="Selecciona una ciudad" label="Ciudad" searchable />
+        </div>
+        <div class="field">
+          <span class="label">Lista que deja crear</span>
+          <Select options={CIUDADES} placeholder="Selecciona o escribe" label="Ciudad" creatable createLabel="Usar" />
+        </div>
+        <div class="field">
+          <span class="label">Fecha</span>
+          <DatePicker name="fecha" label="Fecha" />
+        </div>
+      </div>
+    </div>
+
+    <div class="card bloque flex-column">
+      <h2>Opciones</h2>
+      <div class="fila">
+        <label class="check"><input type="checkbox" checked /> Recordarme</label>
+        <label class="check"><input type="checkbox" /> Acepto el tratamiento de datos</label>
+      </div>
+      <div class="fila">
+        <label class="check"><input type="radio" name="e-pago" checked /> Efectivo</label>
+        <label class="check"><input type="radio" name="e-pago" /> Transferencia</label>
+      </div>
+      <div class="fila">
+        <label class="switch"><input type="checkbox" role="switch" checked /> Avisarme por WhatsApp</label>
+      </div>
+      <div class="fila">
+        <div class="segmented" data-segmento>
+          <button type="button" aria-pressed="true">Todos</button>
+          <button type="button" aria-pressed="false">Nuevos</button>
+          <button type="button" aria-pressed="false">Usados</button>
+        </div>
+        <Menu items={ACCIONES} />
+      </div>
+      <div class="filter-chips" role="group" aria-label="Filtros de ejemplo" data-segmento>
+        <button type="button" aria-pressed="true">Todo <span class="count">12</span></button>
+        <button type="button" aria-pressed="false">Categoría 1 <span class="count">7</span></button>
+        <button type="button" aria-pressed="false">Categoría 2 <span class="count">5</span></button>
+      </div>
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" type="button" data-tab="uno" aria-selected="true">Descripción</button>
+        <button class="tab" role="tab" type="button" data-tab="dos" aria-selected="false">Detalles <span class="count">3</span></button>
+      </div>
+      <p data-panel="uno">Contenido de la primera pestaña.</p>
+      <p data-panel="dos" hidden>Contenido de la segunda pestaña.</p>
+    </div>
+
+    <div class="card bloque flex-column">
+      <h2>Ventanas y avisos</h2>
+      <div class="fila">
+        <button class="btn btn-ghost" type="button" data-modal-open="e-ventana">Ventana con formulario</button>
+        <button class="btn btn-ghost" type="button" data-demo="alerta">Aviso</button>
+        <button class="btn btn-ghost" type="button" data-demo="confirmar">Confirmar</button>
+        <button class="btn btn-ghost" type="button" data-demo="borrar">Confirmar (peligro)</button>
+      </div>
+      <div class="fila">
+        <button class="btn btn-ghost" type="button" data-demo="toast-ok">Aviso corto: bien</button>
+        <button class="btn btn-ghost" type="button" data-demo="toast-mal">Aviso corto: error</button>
+      </div>
+      <div class="empty">
+        <i class="bi bi-inbox" aria-hidden="true"></i>
+        <p>Así se ve una sección sin nada que mostrar.</p>
+        <a class="btn btn-primary btn-sm" href="/">Ir al inicio</a>
+      </div>
+    </div>
+
+    <div class="card bloque flex-column">
+      <h2>Tarjetas y secciones</h2>
+      <TituloSeccion etiqueta="Etiqueta" titulo="Título de sección" texto="Así empieza cada sección del inicio." />
+      <div class="fila">
+        <div class="card tarjeta flex-column">
+          <i class="bi bi-briefcase-fill icon-box lg" aria-hidden="true"></i>
+          <h3>Tarjeta</h3>
+          <p>Borde suave y sombra al pasar el mouse. No se mueve.</p>
+        </div>
+        <div class="tarjeta flex-column bg-dots">
+          <i class="bi bi-lightbulb-fill icon-box lg" aria-hidden="true"></i>
+          <h3>Con puntos</h3>
+          <p>Fondo de puntos con la clase <code>.bg-dots</code>.</p>
+        </div>
+      </div>
+      <ul class="cells celdas">
+        <li>Celda 1</li>
+        <li>Celda 2</li>
+        <li>Celda 3</li>
+      </ul>
+    </div>
+
+    <div class="card bloque flex-column">
+      <h2>Espacios, esquinas y sombras</h2>
+      <ul class="espacios flex-column">
+        {
+          espacios.map((n) => (
+            <li class="flex-row">
+              <code>{n}</code>
+              <span data-espacio={n} />
+            </li>
+          ))
+        }
+      </ul>
+      <div class="fila">
+        {esquinas.map((r) => <span class="caja flex-row" data-esquina={r}>{r}</span>)}
+        {sombras.map((s) => <span class="caja flex-row" data-sombra={s}>{s}</span>)}
+      </div>
+    </div>
+
+    <div class="card bloque flex-column">
+      <h2>Movimiento</h2>
+      <p>Lo que lleva la clase <code>.reveal</code> aparece al bajar.</p>
+      <div class="card tarjeta flex-column reveal">
+        <h3>Aparezco al bajar</h3>
+      </div>
+    </div>
+  </section>
+
+  <Modal id="e-ventana" title="Pedir una cita" description="Así se ve un formulario dentro de una ventana.">
+    <form class="flex-column formulario" novalidate>
+      <div class="field">
+        <label for="v-nombre">Nombre</label>
+        <input id="v-nombre" class="input" autocomplete="off" placeholder="Tu nombre completo" />
+      </div>
+      <div class="field">
+        <span class="label">Ciudad</span>
+        <Select options={CIUDADES} value="Neiva" label="Ciudad" searchable />
+      </div>
+      <div class="field">
+        <span class="label">Fecha</span>
+        <DatePicker name="cita" label="Fecha" />
+      </div>
+    </form>
+    <Fragment slot="footer">
+      <button class="btn btn-ghost" type="button" data-modal-close>Cancelar</button>
+      <button class="btn btn-primary" type="button" data-guardar>Guardar</button>
+    </Fragment>
+  </Modal>
+</Layout1>
+
+<script>
+  // Botones de muestra
+  const DEMOS: Record<string, () => void> = {
+    alerta: () => window.ui.alert({ title: "Mensaje enviado", message: "Te respondemos hoy mismo.", tone: "success" }),
+    confirmar: () => window.ui.confirm({ title: "¿Enviar la solicitud?", message: "Podrás cambiarla después." }).then((si) => si && window.ui.toast("Solicitud enviada", { tone: "success" })),
+    borrar: () =>
+      window.ui
+        .confirm({ title: "¿Borrar la solicitud?", message: "No se puede deshacer.", tone: "danger", confirmText: "Borrar" })
+        .then((si) => si && window.ui.toast("Solicitud borrada", { tone: "warning" })),
+    "toast-ok": () => window.ui.toast("Guardado", { tone: "success" }),
+    "toast-mal": () => window.ui.toast("No se pudo guardar. Intenta de nuevo.", { tone: "danger" }),
+  };
+
+  document.addEventListener("click", (e) => {
+    const t = e.target as HTMLElement;
+    const demo = t.closest<HTMLElement>("[data-demo]");
+    if (demo) DEMOS[demo.dataset.demo!]?.();
+    if (t.closest("[data-guardar]")) {
+      window.ui.closeModal("e-ventana");
+      window.ui.toast("Guardado", { tone: "success" });
+    }
+    const seg = t.closest<HTMLElement>("[data-segmento] button");
+    if (seg) seg.parentElement!.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === seg)));
+  });
+</script>
+
+<style>
+  .muestrario {
+    align-items: stretch;
+    gap: var(--space-4);
+    width: 100%;
+  }
+
+  .cabeza,
+  .bloque {
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--space-3);
+    min-width: 0;
+  }
+
+  .bloque {
+    padding: var(--card-pad);
+    box-shadow: none;
+  }
+
+  .bloque > h2 {
+    font-size: var(--text-lg);
+  }
+
+  code {
+    color: var(--clr-text-muted);
+    font-size: var(--text-xs);
+  }
+
+  .fila {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-3);
+  }
+
+  .form-grid,
+  .callout,
+  .filter-chips,
+  .tabs,
+  .empty,
+  .celdas,
+  .formulario {
+    width: 100%;
+  }
+
+  .formulario {
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+
+  .colores {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--space-3);
+    width: 100%;
+  }
+
+  .colores li {
+    align-items: flex-start;
+    gap: var(--space-1);
+    font-size: var(--text-sm);
+  }
+
+  .muestra {
+    width: 100%;
+    height: 56px;
+    border: solid 1px var(--clr-border);
+    border-radius: var(--radius-md);
+  }
+
+  /* Cada muestra toma su valor por nombre: así esta página tampoco usa style="" */
+  [data-color="bg"] { background-color: var(--clr-bg); }
+  [data-color="surface"] { background-color: var(--clr-surface); }
+  [data-color="surface-sunken"] { background-color: var(--clr-surface-sunken); }
+  [data-color="border"] { background-color: var(--clr-border); }
+  [data-color="border-strong"] { background-color: var(--clr-border-strong); }
+  [data-color="text"] { background-color: var(--clr-text); }
+  [data-color="text-2"] { background-color: var(--clr-text-2); }
+  [data-color="primary"] { background-color: var(--clr-primary); }
+  [data-color="primary-bg"] { background-color: var(--clr-primary-bg); }
+  [data-color="accent"] { background-color: var(--clr-accent); }
+  [data-color="accent-text"] { background-color: var(--clr-accent-text); }
+  [data-color="success"] { background-color: var(--clr-success); }
+  [data-color="warning"] { background-color: var(--clr-warning); }
+  [data-color="danger"] { background-color: var(--clr-danger); }
+
+  .letras,
+  .espacios {
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .letras li,
+  .espacios li {
+    justify-content: flex-start;
+    gap: var(--space-3);
+  }
+
+  .letras code,
+  .espacios code {
+    width: 28px;
+  }
+
+  .letras span {
+    line-height: 1.2;
+  }
+
+  [data-letra="3xl"] { font-size: var(--text-3xl); }
+  [data-letra="2xl"] { font-size: var(--text-2xl); }
+  [data-letra="xl"] { font-size: var(--text-xl); }
+  [data-letra="lg"] { font-size: var(--text-lg); }
+  [data-letra="md"] { font-size: var(--text-md); }
+  [data-letra="sm"] { font-size: var(--text-sm); }
+  [data-letra="xs"] { font-size: var(--text-xs); }
+
+  .espacios span {
+    height: var(--space-3);
+    background-color: var(--clr-primary);
+    border-radius: 2px;
+  }
+
+  [data-espacio="1"] { width: var(--space-1); }
+  [data-espacio="2"] { width: var(--space-2); }
+  [data-espacio="3"] { width: var(--space-3); }
+  [data-espacio="4"] { width: var(--space-4); }
+  [data-espacio="5"] { width: var(--space-5); }
+  [data-espacio="6"] { width: var(--space-6); }
+  [data-espacio="7"] { width: var(--space-7); }
+  [data-espacio="8"] { width: var(--space-8); }
+  [data-espacio="9"] { width: var(--space-9); }
+
+  .tarjeta {
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--space-2);
+    max-width: 260px;
+    padding: var(--card-pad);
+    border: solid 1px var(--card-border);
+    border-radius: var(--radius-lg);
+    box-shadow: none;
+    transition: var(--transition);
+  }
+
+  .celdas {
+    --cells: 3;
+  }
+
+  .caja {
+    width: 72px;
+    height: 72px;
+    background-color: var(--clr-surface-raised);
+    border: solid 1px var(--clr-border-strong);
+    border-radius: var(--radius-md);
+    color: var(--clr-text-muted);
+    font-size: var(--text-xs);
+  }
+
+  [data-esquina="sm"] { border-radius: var(--radius-sm); }
+  [data-esquina="lg"] { border-radius: var(--radius-lg); }
+  [data-esquina="pill"] { border-radius: var(--radius-pill); }
+  [data-sombra="sm"] { box-shadow: var(--shadow-sm); }
+  [data-sombra="md"] { box-shadow: var(--shadow-md); }
+  [data-sombra="lg"] { box-shadow: var(--shadow-lg); }
+
+  @media (hover: hover) {
+    .tarjeta:hover {
+      border-color: var(--card-border-hover);
+      box-shadow: var(--shadow-sm);
+    }
+  }
+</style>

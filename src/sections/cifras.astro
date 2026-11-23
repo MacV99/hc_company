@@ -1,0 +1,108 @@
+---
+// Cifras en una caja de esquinas redondas (como las tarjetas), partida en casillas por líneas finas.
+import { cliente } from "../data/cliente";
+
+const { cifras } = cliente;
+---
+
+{
+  cifras.length > 0 && (
+    <section class="cifras">
+      <ul>
+        {cifras.map(({ numero, texto, contar }) => (
+          <li class="flex-column reveal">
+            <strong class="tnum" data-contar={contar}>{numero}</strong>
+            <span class="eyebrow">{texto}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+<script>
+  // Cuenta desde 0 hasta el número (una vez, al entrar en pantalla). Sin esto, el número se ve fijo y completo.
+  const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const numeros = quieto ? [] : document.querySelectorAll<HTMLElement>("[data-contar]");
+
+  const contar = (el: HTMLElement) => {
+    const final = el.textContent ?? "";
+    const meta = Number(final.replace(/\D/g, ""));
+    const antes = final.match(/^\D*/)?.[0] ?? "";
+    const despues = final.match(/\D*$/)?.[0] ?? "";
+    const inicio = performance.now();
+    const paso = (ahora: number) => {
+      const avance = Math.min((ahora - inicio) / 1800, 1);
+      const suave = 1 - Math.pow(1 - avance, 3);
+      el.textContent = avance < 1 ? antes + Math.floor(suave * meta).toLocaleString("es-CO") + despues : final;
+      if (avance < 1) requestAnimationFrame(paso);
+    };
+    requestAnimationFrame(paso);
+  };
+
+  const vigia = new IntersectionObserver(
+    (entradas) => {
+      for (const { isIntersecting, target } of entradas) {
+        if (!isIntersecting) continue;
+        vigia.unobserve(target);
+        contar(target as HTMLElement);
+      }
+    },
+    { threshold: 0.6 },
+  );
+  numeros.forEach((el) => vigia.observe(el));
+</script>
+
+<style>
+  .cifras {
+    padding-block: 0;
+  }
+
+  /* 2 por fila en celular. Las líneas entre cifras son el espacio de 1px sobre el color del borde */
+  ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    overflow: hidden;
+    background-color: var(--clr-border);
+    border: solid 1px var(--clr-border);
+    border-radius: var(--radius-lg);
+  }
+
+  li {
+    align-items: flex-start;
+    gap: var(--space-1);
+    padding: var(--space-5) var(--space-4);
+    background-color: var(--card-bg);
+  }
+
+  /* Si sobra una, ocupa toda la fila */
+  li:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  strong {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  /* Computador: todas en una fila */
+  @media (min-width: 750px) {
+    ul {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, 1fr);
+    }
+
+    li {
+      padding: var(--space-6) var(--space-5);
+    }
+
+    li:last-child:nth-child(odd) {
+      grid-column: auto;
+    }
+  }
+</style>

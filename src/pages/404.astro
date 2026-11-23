@@ -1,12 +1,56 @@
 ---
 import Layout1 from "../layouts/Layout1.astro";
-import Hero2 from "../sections/Hero2.astro";
+import { cliente } from "../data/cliente";
+
+// Sugerencias: las mismas entradas del menú, menos el inicio
+const sugeridos = cliente.menu.filter(({ url }) => url !== "/");
 ---
 
-<Layout1 title="404 | HC Company S.A.S">
-  <Hero2 title_site="404" />
-  <section>
-    <h1>404 - Not Found</h1>
-    <p>La página que buscas no existe.</p>
+<Layout1 title="Página no encontrada" oculta>
+  <section class="flex-column">
+    <span class="eyebrow">Error 404</span>
+    <h1>No encontramos esta página</h1>
+    <p>Puede que el enlace haya cambiado.</p>
+    <div class="botones flex-row">
+      <a class="btn btn-accent" href="/">Ir al inicio</a>
+      <a class="btn btn-ghost" href={cliente.whatsapp} target="_blank" rel="noopener">
+        <i class="bi bi-whatsapp" aria-hidden="true"></i>Contáctenos
+      </a>
+    </div>
+
+    {
+      sugeridos.length > 0 && (
+        <div class="sugeridos flex-column">
+          <span class="muted small">Quizá buscabas</span>
+          <div class="flex-row">
+            {sugeridos.map(({ texto, url }) => (
+              <a class="btn btn-subtle btn-sm" href={url}>
+                {texto}
+              </a>
+            ))}
+          </div>
+        </div>
+      )
+    }
   </section>
 </Layout1>
+
+<style>
+  section {
+    flex: 1;
+    gap: var(--space-3);
+    min-height: 460px;
+    text-align: center;
+  }
+
+  .botones,
+  .sugeridos div {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .sugeridos {
+    gap: var(--space-2);
+    margin-top: var(--space-5);
+  }
+</style>

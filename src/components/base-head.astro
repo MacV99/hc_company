@@ -1,0 +1,126 @@
+---
+// <head> común: datos para buscadores y redes, letra, precarga de páginas y tema antes del primer pintado.
+import { cliente } from "../data/cliente";
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Página interna: los buscadores no la muestran. */
+  oculta?: boolean;
+}
+
+const { title = cliente.nombre, description = cliente.descripcion, oculta } = Astro.props;
+// Un título que ya nombra a la empresa se deja tal cual (así están escritos los de cada servicio)
+const completo = title.includes(cliente.nombre) ? title : `${title} · ${cliente.nombre}`;
+const canonica = new URL(Astro.url.pathname, cliente.url);
+const imagen = new URL(cliente.imagenCompartir, cliente.url);
+
+// Ficha para Google: le dice qué negocio es, dónde queda, cuándo atiende y cómo contactarlo
+const fichaGoogle = {
+  "@context": "https://schema.org",
+  "@type": cliente.tipoNegocio,
+  name: cliente.legal.razonSocial,
+  description: cliente.descripcionGoogle,
+  url: cliente.url,
+  image: imagen.href,
+  logo: new URL("/img/logo.jpg", cliente.url).href,
+  telephone: cliente.telefono.replace(/\s/g, ""),
+  email: cliente.correo,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: cliente.ciudad,
+    addressRegion: cliente.region,
+    addressCountry: cliente.pais,
+  },
+  geo: { "@type": "GeoCoordinates", latitude: cliente.coordenadas.latitud, longitude: cliente.coordenadas.longitud },
+  areaServed: { "@type": "Country", name: "Colombia" },
+  openingHoursSpecification: cliente.horarioGoogle.map(({ abre, cierra }) => ({
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: abre,
+    closes: cierra,
+  })),
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Servicios de equipos de laboratorio",
+    itemListElement: cliente.servicios.lista.map(({ titulo }) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: titulo } })),
+  },
+  sameAs: cliente.redes.map((r) => r.url),
+};
+const { analitica } = cliente;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>{completo}</title>
+<meta name="description" content={description} />
+{oculta && <meta name="robots" content="noindex" />}
+<link rel="canonical" href={canonica} />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<meta name="google-site-verification" content={cliente.verificacionGoogle} />
+{/* Color de la barra del navegador en el celular: lo cambia el script del tema (mismos tonos que --gray-0 / --gray-950) */}
+<meta name="theme-color" content="#ffffff" data-theme-color />
+<link rel="preload" href="/fonts/geist.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/bi.woff2" as="font" type="font/woff2" crossorigin />
+
+{/* Vista previa al compartir el enlace (WhatsApp, Facebook, X) */}
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={cliente.legal.razonSocial} />
+<meta property="og:title" content={completo} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonica} />
+<meta property="og:image" content={imagen} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="es_CO" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(fichaGoogle)} />
+
+{/* Contador de visitas (sin cookies). Se prende en cliente.ts → analitica */}
+{analitica === "vercel" && <script is:inline defer src="/_vercel/insights/script.js" />}
+{analitica && typeof analitica === "object" && <script is:inline defer data-goatcounter={`https://${analitica.goatcounter}.goatcounter.com/count`} src="https://gc.zgo.at/count.js" />}
+
+{/* Precarga: al dejar el mouse sobre un enlace (o tocarlo) la página se pide antes del clic */}
+<script type="speculationrules" is:inline>
+  {
+    "prefetch": [
+      {
+        "where": { "and": [{ "href_matches": "/*" }, { "not": { "selector_matches": "[data-no-prefetch]" } }] },
+        "eagerness": "moderate"
+      }
+    ]
+  }
+</script>
+
+{/* Tema antes del primer pintado (sin parpadeo). Por defecto sigue al celular o computador. */}
+<script is:inline>
+  (() => {
+    const KEY = "tema";
+    const root = document.documentElement;
+    const mq = matchMedia("(prefers-color-scheme: dark)");
+    let pref = "system";
+    try {
+      pref = localStorage.getItem(KEY) || "system";
+    } catch {}
+    const BAR = { light: "#ffffff", dark: "#111214" };
+    const apply = () => {
+      root.dataset.theme = pref === "system" ? (mq.matches ? "dark" : "light") : pref;
+      document.querySelector("meta[data-theme-color]")?.setAttribute("content", BAR[root.dataset.theme]);
+    };
+    apply();
+    mq.addEventListener("change", apply);
+    window.__theme = {
+      get: () => pref,
+      set: (value) => {
+        pref = value;
+        try {
+          localStorage.setItem(KEY, value);
+        } catch {}
+        apply();
+      },
+    };
+  })();
+</script>

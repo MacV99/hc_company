@@ -1,0 +1,36 @@
+---
+// Botón claro/oscuro. Por defecto el sitio sigue el tema del celular o computador; al tocar, se recuerda la elección.
+---
+
+<button class="btn btn-subtle btn-icon btn-sm tema" type="button" aria-label="Cambiar entre tema claro y oscuro" data-tema>
+  <i class="bi bi-sun sol" aria-hidden="true"></i>
+  <i class="bi bi-moon luna" aria-hidden="true"></i>
+</button>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>("[data-tema]").forEach((boton) =>
+    boton.addEventListener("click", () => {
+      window.__theme.set(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+    }),
+  );
+</script>
+
+<style>
+  .tema {
+    flex-shrink: 0;
+    font-size: var(--text-md);
+  }
+
+  /* Se muestra el ícono del tema al que se va a cambiar */
+  .sol {
+    display: none;
+  }
+
+  :global([data-theme="dark"]) .sol {
+    display: inline-flex;
+  }
+
+  :global([data-theme="dark"]) .luna {
+    display: none;
+  }
+</style>

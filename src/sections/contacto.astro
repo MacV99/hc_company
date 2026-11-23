@@ -1,0 +1,169 @@
+---
+// Contacto: datos y botones a la izquierda; horario (y mapa, si hay) a la derecha.
+import TituloSeccion from "../components/titulo-seccion.astro";
+import { cliente } from "../data/cliente";
+
+const { encabezado } = cliente.contacto;
+const tel = cliente.telefono.replace(/\s/g, "");
+
+type Dato = { icono: string; etiqueta: string; valor: string; url?: string };
+const datos: Dato[] = [];
+const sinEspacios = (numero: string) => numero.replace(/\s/g, "");
+if (cliente.ubicacion) datos.push({ icono: "bi-geo-alt", etiqueta: "Ubicación", valor: cliente.ubicacion });
+if (cliente.telefono) datos.push({ icono: "bi-telephone", etiqueta: "Teléfono", valor: cliente.telefono, url: `tel:${tel}` });
+if (cliente.telefonoTecnico) datos.push({ icono: "bi-tools", etiqueta: "Área técnica", valor: cliente.telefonoTecnico, url: `tel:${sinEspacios(cliente.telefonoTecnico)}` });
+if (cliente.correo) datos.push({ icono: "bi-envelope", etiqueta: "Correo comercial", valor: cliente.correo, url: `mailto:${cliente.correo}` });
+if (cliente.correoAdministrativo) datos.push({ icono: "bi-envelope", etiqueta: "Correo administrativo", valor: cliente.correoAdministrativo, url: `mailto:${cliente.correoAdministrativo}` });
+---
+
+<section id="contacto">
+  <TituloSeccion {...encabezado} />
+
+  <div class="contacto">
+    <div class="datos flex-column reveal">
+      <ul>
+        {
+          datos.map(({ icono, etiqueta, valor, url }) => (
+            <li class="flex-row">
+              <i class={`bi ${icono}`} aria-hidden="true" />
+              <div class="flex-column">
+                <span class="eyebrow">{etiqueta}</span>
+                {url ? <a class="valor" href={url}>{valor}</a> : <span class="valor">{valor}</span>}
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="botones flex-row">
+        <a class="btn btn-accent" href={cliente.whatsapp} target="_blank" rel="noopener">
+          <i class="bi bi-whatsapp" aria-hidden="true"></i>WhatsApp
+        </a>
+        <a class="btn btn-ghost" href={`tel:${tel}`}>
+          <i class="bi bi-telephone" aria-hidden="true"></i>Llamar
+        </a>
+      </div>
+    </div>
+
+    <div class="lado flex-column reveal">
+      {
+        cliente.horario.length > 0 && (
+          <div class="card horario flex-column">
+            <span class="eyebrow">Horario</span>
+            <dl>
+              {cliente.horario.map(({ dia, horas }) => (
+                <div class="flex-row">
+                  <dt>{dia}</dt>
+                  <dd class="mono">{horas}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )
+      }
+      {cliente.mapa && <iframe class="mapa" src={cliente.mapa} title={`Mapa de ${cliente.nombre}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade" />}
+    </div>
+  </div>
+</section>
+
+<style>
+  .contacto {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .datos {
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: var(--space-5);
+  }
+
+  li {
+    justify-content: flex-start;
+    gap: var(--space-4);
+    padding-block: var(--space-4);
+    border-bottom: solid 1px var(--clr-border);
+  }
+
+  li:first-child {
+    padding-top: 0;
+  }
+
+  li > i {
+    flex-shrink: 0;
+    font-size: var(--text-lg);
+    color: var(--clr-text-muted);
+  }
+
+  li div {
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .valor {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--clr-text);
+    overflow-wrap: anywhere;
+  }
+
+  .botones {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: var(--space-2);
+  }
+
+  .lado {
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: var(--space-4);
+  }
+
+  .horario {
+    align-items: stretch;
+    gap: var(--space-3);
+    padding: var(--card-pad);
+    box-shadow: none;
+  }
+
+  dl div {
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-block: var(--space-2);
+    font-size: var(--text-sm);
+  }
+
+  dl div + div {
+    border-top: solid 1px var(--clr-border);
+  }
+
+  dt {
+    color: var(--clr-text-2);
+  }
+
+  dd {
+    font-size: var(--text-xs);
+    text-align: right;
+  }
+
+  .mapa {
+    width: 100%;
+    min-height: 260px;
+    border: solid 1px var(--card-border);
+    border-radius: var(--radius-lg);
+  }
+
+  @media (hover: hover) {
+    a.valor:hover {
+      text-decoration: underline;
+    }
+  }
+
+  @media (min-width: 750px) {
+    .contacto {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-7);
+    }
+  }
+</style>

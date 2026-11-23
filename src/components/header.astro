@@ -1,0 +1,91 @@
+---
+import Navbar from "./navbar.astro";
+import Tema from "./tema.astro";
+import { cliente } from "../data/cliente";
+---
+
+<header class="flex-row">
+  <a href="/" class="marca flex-row" aria-label={`${cliente.nombre}: inicio`}>
+    <img src="/img/logo.avif" alt="" class="logo" width="56" height="56" />
+    <span class="nombre flex-column">
+      <strong>{cliente.legal.razonSocial}</strong>
+      <small class="eyebrow">{cliente.lema}</small>
+    </span>
+  </a>
+  <Navbar />
+  <Tema />
+  <a class="btn btn-accent btn-sm cta" href={cliente.whatsapp} target="_blank" rel="noopener">Contáctenos</a>
+</header>
+
+<style>
+  /* Barra flotante, baja y translúcida */
+  header {
+    justify-content: flex-start;
+    gap: var(--space-2);
+    position: sticky;
+    top: var(--space-3);
+    z-index: var(--z-nav);
+    width: calc(100% - var(--space-4) * 2);
+    max-width: var(--page-max);
+    height: var(--header-h);
+    margin: var(--space-3) auto 0;
+    padding: 0 var(--space-3);
+    border: solid 1px var(--header-border);
+    border-radius: var(--radius-lg);
+  }
+
+  /* El desenfoque va en una capa aparte: puesto en la cabecera misma, atraparía el menú a pantalla completa */
+  header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--header-bg);
+    border-radius: inherit;
+    backdrop-filter: blur(14px) saturate(1.4);
+  }
+
+  .marca {
+    gap: var(--space-2);
+    margin-right: auto;
+    color: var(--clr-text);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .logo {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+  }
+
+  .nombre {
+    align-items: flex-start;
+    gap: 2px;
+    line-height: 1.1;
+  }
+
+  .nombre strong {
+    font-size: var(--text-lg);
+    font-weight: 600;
+  }
+
+  .cta {
+    display: none;
+  }
+
+  /* Celular: el botón del menú va de último, en la esquina (queda más a la mano) */
+  header > :global(nav) {
+    order: 1;
+  }
+
+  @media (min-width: 750px) {
+    .cta {
+      display: inline-flex;
+    }
+
+    header > :global(nav) {
+      order: 0;
+    }
+  }
+</style>

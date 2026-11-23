@@ -1,101 +1,86 @@
 ---
 import Layout1 from "../layouts/Layout1.astro";
-import Hero2 from "../sections/Hero2.astro";
+import PortadaInterna from "../components/portada-interna.astro";
+import TituloSeccion from "../components/titulo-seccion.astro";
+import BloqueFoto from "../components/bloque-foto.astro";
+import Llamada from "../sections/llamada.astro";
+import { cliente } from "../data/cliente";
+
+const enlaces = [
+  { texto: "Negocios verdes", url: "https://www.minambiente.gov.co/negocios-verde" },
+  { texto: "¿En qué consiste la economía circular?", url: "https://www.sostenibilidad.com/desarrollo-sostenible/en-que-consiste-la-economia-circular/" },
+  {
+    texto: "Estrategia Nacional de Economía Circular",
+    url: "https://www.andi.com.co/Uploads/Estrategia%20Nacional%20de%20EconA%CC%83%C2%B3mia%20Circular-2019%20Final.pdf_637176135049017259.pdf",
+  },
+];
 ---
 
 <Layout1
   title="Planeta Hogar y Economía Circular | HC Company S.A.S"
   description="HC Company S.A.S contribuye a la economía circular y los negocios verdes alargando la vida útil de los equipos de laboratorio. Sostenibilidad ambiental en Colombia."
 >
-  <Hero2 title_site="Planeta Hogar" />
-  <section id="economia-circular">
-    <img src="/img/economia_circular.jpg" alt="economía circular" />
-  </section>
-  <section>
-    <div class="flex-row">
-      <div class="flex-column info">
-        <h2>¿Qué son los negocios verdes?</h2>
-        <p>
-          Contemplan las actividades económicas en las que se ofertan bienes o
-          servicios, que generan impactos ambientales positivos y además
-          incorporan buenas prácticas ambientales, sociales y económicas con
-          enfoque de ciclo de vida, contribuyendo a la conservación del ambiente
-          como capital.
-        </p>
+  <PortadaInterna
+    etiqueta="Inicio"
+    regreso="/"
+    titulo="Planeta Hogar"
+    texto="Contribuimos a la economía circular y los negocios verdes alargando la vida útil de los equipos de laboratorio."
+    imagen="/img/planeta.avif"
+    alt="Colibrí esfinge junto a flores de lavanda"
+  />
 
-        <a href="https://www.minambiente.gov.co/negocios-verde" target="_blank"
-          >Negocios verdes</a
-        >
-        <a
-          href="https://www.sostenibilidad.com/desarrollo-sostenible/en-que-consiste-la-economia-circular/"
-          target="_blank">¿En qué consiste la economía circular?</a
-        >
-        <a
-          href="https://www.andi.com.co/Uploads/Estrategia%20Nacional%20de%20EconA%CC%83%C2%B3mia%20Circular-2019%20Final.pdf_637176135049017259.pdf"
-          target="_blank">Estrategia Nacional de Economía Circular</a
-        >
-        <a
-          class="boton"
-          href="https://wa.me/573136536775?text=Hola%20quiero%20información"
-          target="_blank">CONTÁCTENOS</a
-        >
-      </div>
-      <img src="/img/planeta.jpg" alt="banner" />
-    </div>
+  <section id="economia-circular">
+    <TituloSeccion etiqueta="Economía circular" titulo="¿Qué son los negocios verdes?" />
+    <BloqueFoto imagen="/img/economia_circular.avif" alt="Diagrama de la economía circular" ancho={668} alto={581} invertido clara>
+      <p>
+        Contemplan las actividades económicas en las que se ofertan bienes o servicios, que generan impactos ambientales positivos y además incorporan buenas prácticas
+        ambientales, sociales y económicas con enfoque de ciclo de vida, contribuyendo a la conservación del ambiente como capital.
+      </p>
+      <ul class="enlaces flex-column">
+        {
+          enlaces.map(({ texto, url }) => (
+            <li>
+              <a class="flex-row" href={url} target="_blank" rel="noopener">
+                {texto}
+                <i class="bi bi-arrow-up-right" aria-hidden="true" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a class="btn btn-accent" href={cliente.whatsapp} target="_blank" rel="noopener">
+        <i class="bi bi-whatsapp" aria-hidden="true"></i>Contáctenos
+      </a>
+    </BloqueFoto>
   </section>
+
+  <Llamada />
 </Layout1>
 
 <style>
-  #economia-circular {
-    background-color: white;
-  }
-
-  #economia-circular img {
+  .enlaces {
+    align-items: stretch;
     width: 100%;
-    max-width: 400px;
-  }
-  /* Estilos para móviles (pantallas pequeñas) - Lo que tienes ahora */
-  section > div.flex-row {
-    flex-wrap: wrap;
-    row-gap: 20px;
   }
 
-  .info {
-    text-align: left;
-    align-items: flex-start;
-    gap: 10px;
+  .enlaces a {
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-block: var(--space-3);
+    border-bottom: solid 1px var(--clr-border);
+    color: var(--clr-text);
+    font-weight: 500;
+    transition: var(--transition);
   }
 
-  .info a {
-    color: var(--clr-dark2);
-    text-decoration: underline;
+  .enlaces i {
+    flex-shrink: 0;
+    color: var(--clr-text-muted);
   }
 
-  .info a.boton {
-    background-color: var(--clr-dark);
-    color: var(--clr-white);
-    text-decoration: none;
-  }
-
-  img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-  }
-
-  /* --- Sección de Escritorio (Desktop) --- */
-  @media (min-width: 700px) {
-    /* Aquí definimos que texto e imagen se repartan el espacio */
-    .info,
-    img {
-      width: 50%; /* Ocupan la mitad cada uno */
-      /* Opcional: Para asegurar que se alineen bien en la fila */
-      /* Esto asume que .flex-row ya tiene display: flex; */
-    }
-
-    /* Puedes refinar la clase .info si necesitas espaciado */
-    .info {
-      padding-right: 20px; /* Ejemplo para separarlo de la imagen */
+  @media (hover: hover) {
+    .enlaces a:hover {
+      border-color: var(--clr-border-strong);
     }
   }
 </style>

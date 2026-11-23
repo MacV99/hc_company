@@ -1,0 +1,60 @@
+---
+// Contenido a un lado y una foto al otro. `invertido` pone la foto a la izquierda en computador.
+// `clara`: la imagen es un dibujo sobre blanco (un diagrama): se muestra completa sobre fondo blanco.
+interface Props {
+  imagen: string;
+  alt: string;
+  ancho: number;
+  alto: number;
+  invertido?: boolean;
+  clara?: boolean;
+}
+
+const { imagen, alt, ancho, alto, invertido, clara } = Astro.props;
+---
+
+<div class:list={["bloque", { invertido }]}>
+  <div class="texto flex-column reveal">
+    <slot />
+  </div>
+  <img class:list={["reveal", { clara }]} src={imagen} alt={alt} width={ancho} height={alto} loading="lazy" />
+</div>
+
+<style>
+  .bloque {
+    display: grid;
+    gap: var(--space-5);
+    align-items: center;
+  }
+
+  .texto {
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    max-height: 440px;
+    object-fit: cover;
+    border: solid 1px var(--card-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .clara {
+    padding: var(--space-4);
+    object-fit: contain;
+    background-color: var(--img-clara-bg);
+  }
+
+  @media (min-width: 750px) {
+    .bloque {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-7);
+    }
+
+    .invertido img {
+      order: -1;
+    }
+  }
+</style>

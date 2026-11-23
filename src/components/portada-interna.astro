@@ -1,0 +1,96 @@
+---
+// Portada de una página interna: de dónde viene (enlace de regreso), título y texto de apoyo.
+interface Props {
+  etiqueta: string;
+  /** A dónde regresa la etiqueta (por defecto, a los servicios del inicio). */
+  regreso?: string;
+  titulo: string;
+  texto?: string;
+  /** Foto ancha debajo del título. */
+  imagen?: string;
+  alt?: string;
+}
+
+const { etiqueta, regreso = "/#servicios", titulo, texto, imagen, alt = "" } = Astro.props;
+---
+
+<section class="portada bg-grid">
+  <div class="contenido flex-column">
+    <a class="eyebrow flex-row" href={regreso}>
+      <i class="bi bi-arrow-left" aria-hidden="true"></i>
+      {etiqueta}
+    </a>
+    <h1>{titulo}</h1>
+    {texto && <p>{texto}</p>}
+  </div>
+  {imagen && <img class="foto" src={imagen} alt={alt} width="1400" height="600" fetchpriority="high" />}
+</section>
+
+<style>
+  .portada {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-6);
+  }
+
+  .contenido {
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .eyebrow {
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    background-color: var(--clr-surface);
+    border: solid 1px var(--clr-border);
+    border-radius: var(--radius-pill);
+    transition: var(--transition);
+  }
+
+  h1 {
+    max-width: 20ch;
+    font-size: var(--text-3xl);
+    line-height: 1.05;
+  }
+
+  p {
+    max-width: 56ch;
+    font-size: var(--text-lg);
+  }
+
+  .foto {
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    /* Lo importante de la foto suele estar arriba: al recortarla a lo ancho se conserva esa parte */
+    object-position: center 18%;
+    border: solid 1px var(--card-border);
+    border-radius: var(--radius-lg);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .contenido > * {
+      animation: fadeInUp 0.6s var(--ease) both;
+    }
+
+    .contenido > :nth-child(2) {
+      animation-delay: 0.06s;
+    }
+
+    .contenido > :nth-child(3) {
+      animation-delay: 0.12s;
+    }
+  }
+
+  @media (hover: hover) {
+    .eyebrow:hover {
+      border-color: var(--clr-border-strong);
+      color: var(--clr-text);
+    }
+  }
+
+  @media (min-width: 750px) {
+    .foto {
+      aspect-ratio: 21 / 8;
+    }
+  }
+</style>

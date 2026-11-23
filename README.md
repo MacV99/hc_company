@@ -1,43 +1,14 @@
-# Astro Starter Kit: Minimal
+# HC Company S.A.S — sitio web
 
-```sh
-npm create astro@latest -- --template minimal
+hccompanysas.com · Astro · Netlify. Hecho sobre la plantilla base de MacV.
+
+- Textos y datos: `src/data/cliente.ts` y las páginas de `src/pages/`.
+- Colores: `src/styles/project.css`, bloque **MARCA** (el verde es el del logo).
+- Reglas del proyecto: `CLAUDE.md`.
+
+```bash
+pnpm dev       # localhost:4321
+pnpm build     # genera dist/
+pnpm check     # revisar errores
+pnpm fuentes   # al usar un ícono nuevo (Python con fonttools y brotli)
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

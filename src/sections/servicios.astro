@@ -1,0 +1,148 @@
+---
+// Servicios: una tarjeta por servicio. La foto va de borde a borde arriba; abajo número, título, texto y la flecha.
+// Toda la tarjeta es el enlace a la página del servicio.
+import TituloSeccion from "../components/titulo-seccion.astro";
+import { cliente } from "../data/cliente";
+
+const { encabezado, lista } = cliente.servicios;
+const numero = (i: number) => String(i + 1).padStart(2, "0");
+---
+
+{
+  lista.length > 0 && (
+    <section id="servicios">
+      <TituloSeccion {...encabezado} />
+
+      <ul class="grid">
+        {lista.map(({ icono, titulo, texto, imagen, url }, i) => (
+          <li class="reveal">
+            <a class="card tarjeta flex-column" href={url}>
+              {imagen ? (
+                <span class="foto">
+                  <img src={imagen} alt="" width="400" height="300" loading="lazy" />
+                </span>
+              ) : (
+                <i class={`bi ${icono} icon-box lg`} aria-hidden="true" />
+              )}
+              <span class="cuerpo flex-column">
+                <span class="eyebrow">{numero(i)}</span>
+                <h3>{titulo}</h3>
+                <p>{texto}</p>
+              </span>
+              <span class="pie flex-row">
+                Ver servicio
+                <span class="flecha flex-row">
+                  <i class="bi bi-arrow-right" aria-hidden="true" />
+                </span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    width: 100%;
+  }
+
+  li {
+    display: flex;
+  }
+
+  .tarjeta {
+    flex: 1;
+    align-items: stretch;
+    justify-content: flex-start;
+    overflow: hidden;
+    box-shadow: none;
+    transition: var(--transition);
+  }
+
+  /* Foto de borde a borde: el recorte lo hace este marco, así la foto puede crecer adentro sin salirse */
+  .foto {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    border-bottom: solid 1px var(--card-border);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s var(--ease);
+  }
+
+  .icon-box {
+    margin: var(--card-pad) var(--card-pad) 0;
+  }
+
+  .cuerpo {
+    flex: 1;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--space-2);
+    padding: var(--card-pad);
+  }
+
+  .eyebrow {
+    color: var(--clr-accent-text);
+  }
+
+  h3 {
+    color: var(--clr-primary);
+    font-size: var(--text-xl);
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: var(--text-md);
+  }
+
+  .pie {
+    justify-content: space-between;
+    padding: var(--space-3) var(--card-pad);
+    border-top: solid 1px var(--card-border);
+    color: var(--clr-text);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .flecha {
+    width: var(--control-h-sm);
+    height: var(--control-h-sm);
+    border: solid 1px var(--clr-border-strong);
+    border-radius: var(--radius-pill);
+    transition: var(--transition);
+  }
+
+  /* La tarjeta se queda quieta: cambia el borde, la foto se acerca un poco y la flecha se enciende */
+  @media (hover: hover) {
+    .tarjeta:hover {
+      border-color: var(--card-border-hover);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tarjeta:hover img {
+      transform: scale(1.04);
+    }
+
+    .tarjeta:hover .flecha {
+      background-color: var(--clr-accent);
+      border-color: var(--clr-accent);
+      color: var(--clr-on-accent);
+    }
+  }
+
+  @media (min-width: 750px) {
+    .grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
+</style>

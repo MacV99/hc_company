@@ -1,45 +1,160 @@
-<section class="flex-column">
-  <h1>¡Alargamos la vida útil de sus equipos!</h1>
-  <a
-    class="boton"
-    href="https://wa.me/573136536775?text=Hola%20quiero%20información"
-    target="_blank">CONTÁCTENOS</a
-  >
+---
+// Portada: etiqueta, frase grande, texto de apoyo, dos botones y las características en una línea.
+import { cliente } from "../data/cliente";
+---
+
+<section class="hero bg-grid">
+  <img class="foto" src="/img/hero.avif" alt="" width="1400" height="480" fetchpriority="high" />
+  <div class="contenido flex-column">
+    {
+      cliente.etiqueta && (
+        <span class="eyebrow flex-row">
+          <span class="punto" aria-hidden="true" />
+          {cliente.etiqueta}
+        </span>
+      )
+    }
+    <h1>{cliente.titular || cliente.nombre}</h1>
+    <p>{cliente.descripcion}</p>
+    <div class="botones flex-row">
+      <a class="btn btn-accent btn-lg" href={cliente.whatsapp} target="_blank" rel="noopener">
+        <i class="bi bi-whatsapp" aria-hidden="true"></i>Contáctenos
+      </a>
+      <a class="btn btn-ghost btn-lg" href="#servicios">Ver servicios <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+    </div>
+    {
+      cliente.caracteristicas.length > 0 && (
+        <ul class="caracteristicas flex-row">
+          {cliente.caracteristicas.map((texto) => (
+            <li class="flex-row">
+              <i class="bi bi-check2" aria-hidden="true" />
+              {texto}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
 </section>
 
 <style>
-  section {
-    text-align: center;
-    background-image: url("/img/hero.jpg");
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-blend-mode: color;
-    background-color: rgba(0, 0, 0, 0.6);
-    background-size: cover;
-    height: 350px;
+  .hero {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-7);
+  }
+
+  /* Foto de fondo: cubre toda la portada, pareja y apenas visible. Abajo se desvanece para unirse con la página */
+  .foto {
+    position: absolute;
+    /* Sube hasta el borde de la pantalla: pasa por detrás de la cabecera, así no se ve cortada arriba */
+    top: calc((var(--header-h) + var(--space-3)) * -1);
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    max-width: none;
+    height: auto;
+    object-fit: cover;
+    /* En la foto los frascos están hacia la derecha: en celular se muestra esa parte */
+    object-position: 67% center;
+    opacity: var(--hero-foto-opacidad);
+    mask-image: linear-gradient(to bottom, #000 60%, transparent);
+  }
+
+  .contenido {
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .eyebrow {
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    background-color: var(--clr-surface);
+    border: solid 1px var(--clr-border);
+    border-radius: var(--radius-pill);
+  }
+
+  /* Punto vivo: dice «estamos atendiendo» sin escribirlo */
+  .punto {
+    width: 6px;
+    height: 6px;
+    background-color: var(--clr-accent);
+    border-radius: var(--radius-pill);
   }
 
   h1 {
-    font-size: 1.5rem;
-    line-height: normal;
-    color: #fff;
-    letter-spacing: 7px;
-    padding-left: 7px;
+    max-width: 16ch;
+    font-size: var(--text-4xl);
+    line-height: 1;
+    letter-spacing: -0.045em;
   }
 
-  h3 {
-    line-height: normal;
+  p {
+    max-width: 52ch;
+    font-size: var(--text-lg);
   }
 
-  a.boton {
-    background-color: var(--clr-white);
-    color: var(--clr-dark);
+  .botones {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
   }
 
-  @media (min-width: 700px) {
-    h1 {
-      font-size: 2rem;
+  .caracteristicas {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: var(--space-2) var(--space-5);
+    margin-top: var(--space-4);
+    color: var(--clr-text-2);
+    font-size: var(--text-sm);
+  }
+
+  .caracteristicas li {
+    gap: var(--space-2);
+  }
+
+  .caracteristicas i {
+    color: var(--clr-accent-text);
+  }
+
+  /* Entrada: cada renglón sube un poco después del anterior */
+  @media (prefers-reduced-motion: no-preference) {
+    .contenido > * {
+      animation: fadeInUp 0.6s var(--ease) both;
+    }
+
+    .contenido > :nth-child(2) {
+      animation-delay: 0.06s;
+    }
+
+    .contenido > :nth-child(3) {
+      animation-delay: 0.12s;
+    }
+
+    .contenido > :nth-child(4) {
+      animation-delay: 0.18s;
+    }
+
+    .contenido > :nth-child(5) {
+      animation-delay: 0.24s;
+    }
+  }
+
+  /* La cuadrícula sube igual que la foto */
+  .hero::before {
+    top: calc((var(--header-h) + var(--space-3)) * -1);
+  }
+
+  @media (min-width: 750px) {
+    /* Computador: la foto se agranda y se corre para que los frascos queden al centro, no a un lado */
+    .foto {
+      width: 140%;
+      object-position: center;
+    }
+
+    .hero {
+      padding-top: var(--space-9);
+      padding-bottom: var(--space-8);
     }
   }
 </style>

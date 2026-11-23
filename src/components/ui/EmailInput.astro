@@ -1,0 +1,45 @@
+---
+// Correo con ayudas (lib/ui/correo.ts): minúsculas y sin espacios al escribir, mensaje claro si falta algo
+// y corrección de errores de dedo. Trae su etiqueta y sus mensajes: no envolver en otro .field.
+interface Props {
+  id: string;
+  name?: string;
+  label?: string;
+  /** "username" al entrar · "email" al crear la cuenta. */
+  autocomplete?: "email" | "username";
+}
+
+const { id, name = "correo", label = "Correo", autocomplete = "email" } = Astro.props;
+---
+
+<div class="field" data-correo>
+  <label for={id}>{label}</label>
+  <input
+    id={id}
+    class="input"
+    type="text"
+    name={name}
+    inputmode="email"
+    autocomplete={autocomplete}
+    autocapitalize="none"
+    autocorrect="off"
+    spellcheck="false"
+    placeholder="nombre@gmail.com"
+  />
+  <button type="button" class="sugerencia" data-correo-sugerencia hidden></button>
+  <span class="error-text" data-correo-error data-error={name} hidden></span>
+</div>
+
+<style>
+  .sugerencia {
+    align-self: flex-start;
+    padding: var(--space-1) var(--space-2);
+    background-color: var(--clr-primary-bg);
+    border-radius: var(--radius-sm);
+    color: var(--clr-primary);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+</style>

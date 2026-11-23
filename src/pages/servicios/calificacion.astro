@@ -1,303 +1,140 @@
 ---
 import Layout1 from "../../layouts/Layout1.astro";
-import Hero2 from "../../sections/Hero2.astro";
+import PortadaInterna from "../../components/portada-interna.astro";
+import TituloSeccion from "../../components/titulo-seccion.astro";
+import Llamada from "../../sections/llamada.astro";
+
+const calificaciones = [
+  {
+    sigla: "IQ",
+    descripcion: "Verificación de instalación correcta y documentación",
+    objetivo: "Asegurar que el equipo está instalado adecuadamente antes del uso",
+  },
+  {
+    sigla: "OQ",
+    descripcion: "Pruebas de funcionamiento y seguridad",
+    objetivo: "Confirmar que el equipo funciona según sus especificaciones técnicas",
+  },
+  {
+    sigla: "PQ",
+    descripcion: "Evaluación del rendimiento en uso real",
+    objetivo: "Garantizar que el equipo cumple con los requisitos de calidad a largo plazo",
+  },
+];
 ---
 
 <Layout1
   title="Calificación IQ OQ PQ de Equipos de Laboratorio | HC Company S.A.S"
   description="Servicio de calificación IQ, OQ y PQ de equipos de laboratorio en Colombia. Verificación y validación de equipos según estándares de calidad. HC Company S.A.S."
 >
-  <Hero2 title_site="CALIFICACIÓN: IQ - OQ - PQ" />
+  <PortadaInterna etiqueta="Servicios" titulo="Calificación: IQ · OQ · PQ" />
 
-  <section class="calificacion-section flex-column">
-    <div class="container flex-column">
-      <!-- Primera Tabla: Calificación IQ - OQ - PQ -->
-      <div class="table-wrapper">
-        <table class="tabla-calificacion">
-          <thead>
-            <tr>
-              <th>Calificación</th>
-              <th>IQ</th>
-              <th>OQ</th>
-              <th>PQ</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td data-label="Calificación"><strong>Descripción</strong></td>
-              <td data-label="IQ"
-                >Verificación de instalación correcta y documentación</td
-              >
-              <td data-label="OQ">Pruebas de funcionamiento y seguridad</td>
-              <td data-label="PQ">Evaluación del rendimiento en uso real</td>
-            </tr>
-            <tr>
-              <td data-label="Calificación"><strong>Objetivo</strong></td>
-              <td data-label="IQ"
-                >Asegurar que el equipo está instalado adecuadamente antes del
-                uso</td
-              >
-              <td data-label="OQ"
-                >Confirmar que el equipo funciona según sus especificaciones
-                técnicas</td
-              >
-              <td data-label="PQ"
-                >Garantizar que el equipo cumple con los requisitos de calidad a
-                largo plazo</td
-              >
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <section>
+    <TituloSeccion etiqueta="Calificación" titulo="IQ, OQ y PQ" />
+    <ul class="fichas">
+      {
+        calificaciones.map(({ sigla, descripcion, objetivo }) => (
+          <li class="card flex-column reveal">
+            <strong class="sigla">{sigla}</strong>
+            <dl>
+              <dt class="eyebrow">Descripción</dt>
+              <dd>{descripcion}</dd>
+              <dt class="eyebrow">Objetivo</dt>
+              <dd>{objetivo}</dd>
+            </dl>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 
-      <!-- Segunda Tabla: Verificación -->
-      <div class="table-wrapper">
-        <table class="tabla-verificacion">
-          <thead>
-            <tr>
-              <th>Verificación</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td data-label="Campo"><strong>Descripción</strong></td>
-              <td data-label="Contenido"
-                >Comparación de las mediciones o rendimiento del equipo con un
-                estándar de referencia (patrón) calibrado y certificado.</td
-              >
-            </tr>
-            <tr>
-              <td data-label="Campo"><strong>Objetivo</strong></td>
-              <td data-label="Contenido"
-                >Asegurar que el equipo funcione dentro de los límites
-                establecidos y con la precisión requerida.</td
-              >
-            </tr>
-          </tbody>
-        </table>
+  <section>
+    <TituloSeccion etiqueta="Verificación" titulo="Verificación" />
+    <div class="verificacion">
+      <div class="card flex-column reveal">
+        <dl>
+          <dt class="eyebrow">Descripción</dt>
+          <dd>Comparación de las mediciones o rendimiento del equipo con un estándar de referencia (patrón) calibrado y certificado.</dd>
+          <dt class="eyebrow">Objetivo</dt>
+          <dd>Asegurar que el equipo funcione dentro de los límites establecidos y con la precisión requerida.</dd>
+        </dl>
       </div>
-
-      <!-- Imagen -->
-      <div class="imagen-container">
-        <img
-          src="https://lirp.cdn-website.com/711523b1/dms3rep/multi/opt/WhatsApp+Image+2025-06-17+at+7.40.31+PM-1920w.jpeg"
-          alt="Persona verificando temperatura con termómetro en recipiente de acero inoxidable"
-          loading="lazy"
-        />
-      </div>
+      <img
+        class="reveal"
+        src="https://lirp.cdn-website.com/711523b1/dms3rep/multi/opt/WhatsApp+Image+2025-06-17+at+7.40.31+PM-1920w.jpeg"
+        alt="Persona verificando temperatura con termómetro en recipiente de acero inoxidable"
+        width="800"
+        height="600"
+        loading="lazy"
+      />
     </div>
   </section>
+
+  <Llamada />
 </Layout1>
 
 <style>
-  .calificacion-section {
-    padding: 1.5rem 1rem;
+  .fichas {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
   }
 
-  .container {
-    width: 100%;
-    max-width: 1200px;
-    gap: 1.5rem;
-    margin: 0 auto;
+  .card {
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: var(--space-4);
+    padding: var(--card-pad);
+    box-shadow: none;
   }
 
-  .table-wrapper {
-    width: 100%;
-    overflow-x: hidden;
-    border-radius: 12px;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  thead {
-    background-color: var(--clr-dark);
-    color: var(--clr-white);
-  }
-
-  th {
-    padding: 0.75rem;
-    text-align: left;
+  .sigla {
+    color: var(--clr-accent-text);
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
     font-weight: 600;
-    font-size: 0.9rem;
+    line-height: 1;
+    letter-spacing: var(--tracking-tight);
   }
 
-  tbody tr {
-    background-color: #fff;
+  dd {
+    margin-top: var(--space-1);
+    color: var(--clr-text);
   }
 
-  td {
-    padding: 0.75rem;
-    font-size: 0.85rem;
-    line-height: 1.5;
-    border-bottom: 1px solid var(--clr-gray);
-    color: var(--clr-dark2);
+  dd + dt {
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: solid 1px var(--clr-border);
   }
 
-  td::before {
-    color: var(--clr-dark) !important;
-  }
-
-  tbody tr:last-child td {
-    border-bottom: none;
-  }
-
-  td strong {
-    color: var(--clr-dark);
-  }
-
-  .imagen-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-  }
-
-  .imagen-container img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
+  dt {
     display: block;
   }
 
-  /* RESPONSIVE - Móviles pequeños (hasta 600px) */
-  @media (max-width: 600px) {
-    /* Tabla Calificación - Vista de cards en móvil */
-    .tabla-calificacion thead {
-      display: none;
-    }
-
-    .tabla-calificacion tbody tr {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 1rem;
-      /* border: 1px solid #e0e0e0; */
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .tabla-calificacion tbody tr td {
-      display: flex;
-      flex-direction: column;
-      padding: 0.75rem;
-      border-bottom: 1px solid #e0e0e0;
-    }
-
-    .tabla-calificacion tbody tr td:last-child {
-      border-bottom: none;
-    }
-
-    .tabla-calificacion tbody tr td::before {
-      content: attr(data-label);
-      font-weight: 600;
-      color: var(--clr-dar2);
-      margin-bottom: 0.5rem;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* Tabla Verificación en móvil */
-    .tabla-verificacion thead th:first-child {
-      display: block;
-    }
-
-    .tabla-verificacion thead th:last-child {
-      display: none;
-    }
-
-    .tabla-verificacion tbody tr {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .tabla-verificacion tbody tr td {
-      display: block;
-      width: 100%;
-    }
-
-    .tabla-verificacion tbody tr td:first-child {
-      font-weight: 600;
-      background-color: #f8f9fa;
-    }
+  .verificacion {
+    display: grid;
+    gap: var(--space-5);
+    align-items: center;
   }
 
-  /* RESPONSIVE - Tablets (601px - 768px) */
-  @media (min-width: 601px) and (max-width: 768px) {
-    .calificacion-section {
-      padding: 2rem 1.5rem;
-    }
-
-    .container {
-      gap: 2rem;
-    }
-
-    th {
-      padding: 0.875rem;
-      font-size: 0.95rem;
-    }
-
-    td {
-      padding: 0.875rem;
-      font-size: 0.9rem;
-    }
-
-    .imagen-container {
-      padding: 1.25rem;
-    }
-
-    /* Tablas con scroll horizontal si es necesario */
-    table {
-      min-width: 600px;
-    }
+  img {
+    width: 100%;
+    height: auto;
+    max-height: 420px;
+    object-fit: cover;
+    border: solid 1px var(--card-border);
+    border-radius: var(--radius-lg);
   }
 
-  /* RESPONSIVE - Desktop (769px en adelante) */
-  @media (min-width: 769px) {
-    .calificacion-section {
-      padding: 3rem 2rem;
+  @media (min-width: 750px) {
+    .fichas {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .container {
-      gap: 2.5rem;
-    }
-
-    th {
-      padding: 1rem;
-      font-size: 1rem;
-    }
-
-    td {
-      padding: 1rem;
-      font-size: 0.95rem;
-    }
-
-    .imagen-container {
-      padding: 1.5rem;
-    }
-  }
-
-  /* RESPONSIVE - Desktop grande (1024px en adelante) */
-  @media (min-width: 1024px) {
-    .calificacion-section {
-      padding: 4rem 2rem;
-    }
-
-    .container {
-      gap: 3rem;
-    }
-
-    th {
-      padding: 1.25rem;
-      font-size: 1.05rem;
-    }
-
-    td {
-      padding: 1.25rem;
-      font-size: 1rem;
+    .verificacion {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-7);
     }
   }
 </style>

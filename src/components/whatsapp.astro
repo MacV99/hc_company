@@ -1,0 +1,46 @@
+---
+// Botón flotante de WhatsApp, con el mensaje ya escrito. Se apaga con cliente.whatsappFlotante = false.
+import { cliente } from "../data/cliente";
+---
+
+{
+  cliente.whatsappFlotante && (
+    <a class="whatsapp flex-row" href={cliente.whatsapp} target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+      <i class="bi bi-whatsapp" aria-hidden="true" />
+    </a>
+  )
+}
+
+<style>
+  .whatsapp {
+    position: fixed;
+    right: var(--space-4);
+    bottom: calc(var(--space-4) + var(--tabbar-h) + env(safe-area-inset-bottom, 0px));
+    z-index: var(--z-nav);
+    width: 48px;
+    height: 48px;
+    background-color: var(--clr-accent);
+    color: var(--clr-on-accent);
+    /* Aro fino: lo separa del fondo */
+    border: solid 1px var(--float-ring);
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-lg);
+    font-size: var(--text-xl);
+    transition: var(--transition);
+  }
+
+  /* Con el menú del celular abierto se esconde: ahí ya hay un botón para escribir */
+  :global(.sin-scroll) .whatsapp {
+    display: none;
+  }
+
+  .whatsapp:active {
+    transform: scale(0.94);
+  }
+
+  @media (hover: hover) {
+    .whatsapp:hover {
+      background-color: var(--clr-accent-hover);
+    }
+  }
+</style>

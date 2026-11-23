@@ -1,211 +1,152 @@
 ---
 import Layout1 from "../../layouts/Layout1.astro";
+import PortadaInterna from "../../components/portada-interna.astro";
+import TituloSeccion from "../../components/titulo-seccion.astro";
+import BloqueFoto from "../../components/bloque-foto.astro";
+import ListaColumnas from "../../components/lista-columnas.astro";
+import TarjetasFoto from "../../components/tarjetas-foto.astro";
+import Marcas from "../../sections/marcas.astro";
+import Llamada from "../../sections/llamada.astro";
 
-import Hero2 from "../../sections/Hero2.astro";
+const laboratorios = [
+  "Biología",
+  "Biología Molecular",
+  "Citogenética",
+  "Botánica - Herbario",
+  "Limnología",
+  "Ictiología",
+  "Análisis de Suelos",
+  "Análisis Químico",
+  "Análisis de Aguas",
+  "Análisis de Semillas",
+  "Fisiología Animal",
+  "Fisiología Vegetal",
+  "Geología",
+  "Lodos",
+  "Materiales",
+  "Hidráulica",
+  "Entomología",
+];
+
+const equipos = [
+  "Balanzas",
+  "Autoclaves",
+  "Cabinas de Aislamiento",
+  "Cabinas de Flujo Laminar y Bioseguridad",
+  "Mantas",
+  "Hornos",
+  "Bloques de Calentamiento",
+  "Muflas",
+  "DBO",
+  "Centrífugas",
+  "Rotaevaporadores",
+  "Deshumidificadores",
+  "Neveras",
+  "Refractómetros",
+  "Floculadores",
+  "Tamizadoras",
+  "Baños maría",
+  "Destiladores",
+  "Planchas de Calentamiento",
+];
+
+const grupos = [
+  {
+    imagen: "/img/mantenimiento/analizador.avif",
+    alt: "Analizador de alimentos y lácteos en laboratorio",
+    titulo: "Alimentos, leches y carnes",
+    texto:
+      "Batidoras, Descremadoras, Analizadores, Embutidoras, Sierras sin Fin, Cámaras Climáticas, Molinos, Hornos, Estufas a gas, Empacadora al Vacío, Selladoras, Tajadoras, Baños de Cocción, Centrífugas Gerber.",
+  },
+  {
+    imagen: "/img/mantenimiento/agitador.avif",
+    alt: "Agitador orbital y destilador de nitrógeno en laboratorio",
+    titulo: "Laboratorio",
+    texto:
+      "Agitador Orbital, Destilador de Nitrógeno, Cámara de Electroforesis, Estufas de Secado, Fusiómetros, Destiladores de Kjeldahl, Micrótomos, Campanas Extractoras.",
+  },
+  {
+    imagen: "/img/mantenimiento/mufla.avif",
+    alt: "Mufla de laboratorio para análisis de petróleo y materiales",
+    titulo: "Petróleo y materiales",
+    texto:
+      "Viscosímetros Cinemáticos, Saybolt, Baños de Presión Reid, Muflas, Karl Fischer, Flash Point, Destilador de Crudos, Generadores de Humedad, Permeámetros, Presión Capilar.",
+  },
+];
+
+const restauracion = [
+  { imagen: "/img/mantenimiento/1.avif", alt: "Microscopio antes de restauración de iluminación LED" },
+  { imagen: "/img/mantenimiento/2.avif", alt: "Proceso de adaptación de sistema LED en microscopio" },
+  { imagen: "/img/mantenimiento/3.avif", alt: "Microscopio con nuevo sistema de iluminación LED instalado" },
+  { imagen: "/img/mantenimiento/4.avif", alt: "Resultado final de restauración LED en equipo óptico de laboratorio" },
+];
 ---
 
 <Layout1
   title="Mantenimiento Preventivo y Correctivo de Equipos de Laboratorio | HC Company"
   description="Servicio de mantenimiento preventivo, correctivo y predictivo de equipos de laboratorio en Colombia: balanzas, autoclaves, microscopios, centrifugas, hornos y más. HC Company S.A.S."
 >
-  <Hero2 title_site="MANTENIMIENTO PREVENTIVO - CORRECTIVO PREDICTIVO" />
+  <PortadaInterna etiqueta="Servicios" titulo="Mantenimiento preventivo, correctivo y predictivo" />
 
   <section>
-    <div class="flex-row">
-      <div class="flex-column info">
-        <h2>Alcance de Servicio Laboratorios</h2>
-        <ul class="flex-row">
-          <li>Biología</li>
-          <li>Biología Molecular</li>
-          <li>Citogenética</li>
-          <li>Botánica - Herbario</li>
-          <li>Limnología</li>
-          <li>Ictiología</li>
-          <li>Análisis de Suelos</li>
-          <li>Análisis Químico</li>
-          <li>Análisis de Aguas</li>
-          <li>Análisis de Semillas</li>
-          <li>Fisiología Animal</li>
-          <li>Fisiología Vegetal</li>
-          <li>Geología</li>
-          <li>Lodos</li>
-          <li>Materiales</li>
-          <li>Hidráulica</li>
-          <li>Entomología</li>
-        </ul>
-      </div>
-      <img src="/img/servicios/calificacion.jpg" alt="Equipo de laboratorio siendo calificado por técnico de HC Company" />
-    </div>
+    <TituloSeccion etiqueta="Alcance" titulo="Alcance de servicio: laboratorios" />
+    <BloqueFoto imagen="/img/servicios/calificacion.avif" alt="Equipo de laboratorio siendo calificado por técnico de HC Company" ancho={779} alto={556}>
+      <ListaColumnas elementos={laboratorios} />
+    </BloqueFoto>
   </section>
 
   <section>
-    <div class="flex-row inverse">
-      <div class="flex-column info">
-        <h2>
-          Equipo de uso en Mediciones y Análisis de Sustancias y Materiales
-        </h2>
-        <p>
-          Balanzas, Autoclaves, Cabinas de Aislamiento, Cabinas de Flujo Laminar
-          y Bioseguridad, Mantas, Hornos, Bloques de Calentamiento, Muflas, DBO,
-          Centrifugas, Rotaevaporadores, Deshumidificadores, Neveras,
-          Refractómetros, Floculadores, Tamizadoras, Baños maría, Destiladores,
-          Planchas de Calentamiento.
-        </p>
-      </div>
-      <img src="/img/servicios/mantenimiento.jpg" alt="Técnico realizando mantenimiento preventivo de equipo de laboratorio" />
-    </div>
-  </section>
-
-  <section class="sectioncards flex-row">
-    <div class="flex-column">
-      <img src="/img/mantenimiento/analizador.jpg" alt="Analizador de alimentos y lácteos en laboratorio" />
-      <h4>Alimentos - Leches - Carnes</h4>
-      <p>
-        Batidoras, Descremadoras, analizadores , Embutidoras, Sierras sin Fin,
-        Cámaras Climáticas, Molinos, Hornos, Estufas a gas, Empacadora al Vacío,
-        Selladoras, Tajadoras, Baños de Cocción, Centrífugas Guerber.
-      </p>
-    </div>
-    <div class="flex-column">
-      <img src="/img/mantenimiento/agitador.jpg" alt="Agitador orbital y destilador de nitrógeno en laboratorio" />
-      <h4>Alimentos - Leches - Carnes</h4>
-      <p>
-        Agitador Orbital, Destilador de Nitrógeno, Cámara de Electroforesis,
-        Estufas de Secado, Fusiómetros, Destiladores de Kendall. Micrótomos.
-        Campanas Extractoras.
-      </p>
-    </div>
-    <div class="flex-column">
-      <img src="/img/mantenimiento/mufla.jpg" alt="Mufla de laboratorio para análisis de petróleo y materiales" />
-      <h4>Alimentos - Leches - Carnes</h4>
-      <p>
-        Viscosímetros Cinemáticos, Saybolt, Baños de Presión Reid, Muflas, Karl
-        Fischer, Flash Point, Destilador de Crudos Generadores de Humedad,
-        Permeámetros, Presión Capilar.
-      </p>
-    </div>
+    <TituloSeccion etiqueta="Equipos" titulo="Equipo de uso en mediciones y análisis de sustancias y materiales" />
+    <BloqueFoto imagen="/img/servicios/mantenimiento.avif" alt="Técnico realizando mantenimiento preventivo de equipo de laboratorio" ancho={683} alto={475} invertido>
+      <ListaColumnas elementos={equipos} />
+    </BloqueFoto>
   </section>
 
   <section>
-    <img style="max-width: 300px;" src="/img/mantenimiento/marcas.jpg" alt="Marcas de equipos de laboratorio que mantenemos: Mettler Toledo, Thermo Scientific y más" />
+    <TituloSeccion etiqueta="Por sector" titulo="Equipos por tipo de laboratorio" />
+    <TarjetasFoto tarjetas={grupos} />
   </section>
+
+  <Marcas />
 
   <section id="instrumentos">
-    <div class="flex-row">
-      <div class="flex-column info">
-        <h2>Instrumentos Ópticos</h2>
-        <ul>
-          <li><strong>Microscopios:</strong></li>
-          <li>Compuestos</li>
-          <li>Invertidos</li>
-          <li>Contraste de Fases</li>
-          <li>Digitales</li>
-          <li>De Fluorescencia</li>
-          <li>Quirúrgicos</li>
-        </ul>
-        <ul>
-          <li><strong>Refractómetros de mesa</strong></li>
-          <li>Colposcopios</li>
-          <li>Estereoscopios</li>
-        </ul>
-        <ul>
-          <li><strong>Restauración</strong></li>
-          <li>Adaptación sistema regulable iluminación led</li>
-        </ul>
+    <TituloSeccion etiqueta="Óptica" titulo="Instrumentos ópticos" />
+    <div class="tres">
+      <div class="card reveal">
+        <ListaColumnas titulo="Microscopios" elementos={["Compuestos", "Invertidos", "Contraste de Fases", "Digitales", "De Fluorescencia", "Quirúrgicos"]} una />
       </div>
-      <img src="/img/servicios/mantenimiento.jpg" alt="Instrumentos ópticos de laboratorio: microscopios y refractómetros" />
+      <div class="card reveal">
+        <ListaColumnas titulo="Otros instrumentos" elementos={["Refractómetros de mesa", "Colposcopios", "Estereoscopios"]} una />
+      </div>
+      <div class="card reveal">
+        <ListaColumnas titulo="Restauración" elementos={["Adaptación sistema regulable iluminación led"]} una />
+      </div>
     </div>
   </section>
 
-  <section class="flex-column restauracion">
-    <h2>Restauración y adaptación de sistema de iluminación LED</h2>
-    <div class="flex-row">
-      <img src="/img/mantenimiento/1.jpg" alt="Microscopio antes de restauración de iluminación LED" />
-      <img src="/img/mantenimiento/2.jpg" alt="Proceso de adaptación de sistema LED en microscopio" />
-      <img src="/img/mantenimiento/3.jpg" alt="Microscopio con nuevo sistema de iluminación LED instalado" />
-      <img src="/img/mantenimiento/4.jpg" alt="Resultado final de restauración LED en equipo óptico de laboratorio" />
-    </div>
+  <section>
+    <TituloSeccion etiqueta="Antes y después" titulo="Restauración y adaptación de sistema de iluminación LED" />
+    <TarjetasFoto tarjetas={restauracion} pequenas />
   </section>
+
+  <Llamada />
 </Layout1>
 
 <style>
-  section > div.flex-row {
-    flex-wrap: wrap;
-    row-gap: 20px;
+  .tres {
+    display: grid;
+    gap: var(--space-4);
+    align-items: start;
   }
 
-  section:nth-child(even) {
-    background-color: #fff;
+  .tres .card {
+    padding: var(--card-pad);
+    box-shadow: none;
   }
 
-  .info {
-    text-align: left;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 20px;
-  }
-
-  ul {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-
-  li {
-    width: 50%;
-  }
-
-  img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-  }
-
-  .sectioncards {
-    flex-wrap: wrap;
-  }
-
-  .sectioncards div {
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-    background-color: #fff;
-  }
-
-  .sectioncards div p {
-    margin-top: 10px;
-  }
-
-  #instrumentos li {
-    width: auto;
-  }
-
-  section h2 {
-    text-align: center;
-  }
-
-  .restauracion img {
-    height: 160px;
-    width: auto;
-    border-radius: 8px;
-    margin: 0 10px;
-  }
-
-  @media (min-width: 700px) {
-    .info,
-    img {
-      width: 50%;
-    }
-
-    .info {
-      padding-right: 10px;
-    }
-
-    .inverse {
-      flex-direction: row-reverse;
-    }
-
-    .inverse .info {
-      padding-left: 30px;
+  @media (min-width: 750px) {
+    .tres {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 </style>

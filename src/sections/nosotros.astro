@@ -1,0 +1,81 @@
+---
+import TituloSeccion from "../components/titulo-seccion.astro";
+import { cliente } from "../data/cliente";
+
+const { encabezado, texto, imagen, puntos } = cliente.nosotros;
+---
+
+{
+  texto.length > 0 && (
+    <section id="nosotros">
+      <TituloSeccion {...encabezado} />
+      <div class="nosotros">
+        {imagen && <img class="reveal" src={imagen} alt="Material de vidrio de laboratorio" width="1400" height="480" loading="lazy" />}
+        <div class="texto flex-column reveal">
+          {texto.map((parrafo) => <p class="texto-grande">{parrafo}</p>)}
+          {puntos.length > 0 && (
+            <ul class="flex-column">
+              {puntos.map((punto) => (
+                <li class="flex-row">
+                  <i class="bi bi-check-circle-fill" aria-hidden="true" />
+                  {punto}
+                </li>
+              ))}
+            </ul>
+          )}
+          <a class="btn btn-ghost" href="#contacto">Contáctenos <i class="bi bi-arrow-right" aria-hidden="true" /></a>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .nosotros {
+    display: grid;
+    gap: var(--space-5);
+    align-items: center;
+    width: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border: solid 1px var(--card-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .texto {
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .texto-grande {
+    font-size: var(--text-lg);
+  }
+
+  ul {
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  li {
+    justify-content: flex-start;
+    gap: var(--space-2);
+    font-weight: 500;
+    color: var(--clr-text);
+  }
+
+  li i {
+    color: var(--clr-text);
+  }
+
+  @media (min-width: 750px) {
+    .nosotros {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-7);
+    }
+  }
+</style>

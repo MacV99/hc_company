@@ -1,0 +1,97 @@
+---
+// Marcas en una caja de esquinas redondas (como las tarjetas), partida en casillas iguales por líneas finas.
+import TituloSeccion from "../components/titulo-seccion.astro";
+import { cliente } from "../data/cliente";
+
+const { encabezado, lista } = cliente.marcas;
+---
+
+{
+  lista.length > 0 && (
+    <section id="marcas">
+      <TituloSeccion {...encabezado} />
+
+      <div class="caja reveal">
+        <ul class="marcas">
+          {lista.map(({ nombre, logo }) => (
+            <li class="flex-row">{logo ? <img src={logo} alt={nombre} height="40" loading="lazy" /> : <span>{nombre}</span>}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  /* La caja pone el borde de afuera y las esquinas redondas, y recorta lo que sobra */
+  .caja {
+    overflow: hidden;
+    background-color: var(--card-bg);
+    border: solid 1px var(--card-border);
+    border-radius: var(--radius-lg);
+  }
+
+  /* Cada casilla pone su línea de abajo y de la derecha. Las del borde quedan escondidas bajo el de la caja:
+     así cierra bien con cualquier cantidad de marcas, aunque la última fila quede incompleta. */
+  .marcas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0 -1px -1px 0;
+  }
+
+  li {
+    min-height: 88px;
+    padding: var(--space-4);
+    border-right: solid 1px var(--clr-border);
+    border-bottom: solid 1px var(--clr-border);
+    text-align: center;
+    transition: var(--transition);
+  }
+
+  /* Logos en gris para que ninguno grite más que otro; a color al pasar el mouse */
+  img {
+    width: auto;
+    max-height: 40px;
+    filter: grayscale(1);
+    opacity: 0.7;
+    transition: var(--transition);
+  }
+
+  span {
+    color: var(--clr-text-2);
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: var(--tracking-tight);
+    transition: var(--transition);
+  }
+
+  @media (hover: hover) {
+    li:hover {
+      background-color: var(--clr-surface);
+    }
+
+    li:hover span {
+      color: var(--clr-text);
+    }
+
+    li:hover img {
+      filter: none;
+      opacity: 1;
+    }
+  }
+
+  @media (min-width: 750px) {
+    .marcas {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    li {
+      min-height: 112px;
+    }
+
+    span {
+      font-size: var(--text-xl);
+    }
+  }
+</style>

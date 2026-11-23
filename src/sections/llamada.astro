@@ -1,0 +1,57 @@
+---
+// Llamada a escribir: bloque suave con cuadrícula. Sigue el tema (claro en claro, oscuro en oscuro).
+import { cliente } from "../data/cliente";
+
+const { titulo, texto, boton } = cliente.llamada;
+---
+
+{
+  titulo && (
+    <section class="llamada">
+      <div class="caja bg-grid reveal">
+        <div class="flex-column">
+          <h2>{titulo}</h2>
+          {texto && <p>{texto}</p>}
+        </div>
+        <a class="btn btn-accent btn-lg" href={cliente.whatsapp} target="_blank" rel="noopener">
+          <i class="bi bi-whatsapp" aria-hidden="true" />
+          {boton}
+        </a>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .caja {
+    display: grid;
+    gap: var(--space-5);
+    align-items: end;
+    padding: var(--space-6) var(--space-5);
+    overflow: hidden;
+    background-color: var(--clr-primary-bg);
+    border: solid 1px var(--clr-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .caja > div {
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  h2 {
+    font-size: var(--text-3xl);
+  }
+
+  p {
+    max-width: 44ch;
+    font-size: var(--text-lg);
+  }
+
+  @media (min-width: 750px) {
+    .caja {
+      grid-template-columns: minmax(0, 1fr) auto;
+      padding: var(--space-8) var(--space-7);
+    }
+  }
+</style>

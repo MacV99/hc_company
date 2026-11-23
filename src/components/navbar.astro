@@ -1,150 +1,215 @@
-<nav class="flex-column" aria-label="Menú principal">
-  <i class="bi bi-list open-nav" aria-label="Abrir menú"></i>
+---
+// Menú. Computador: enlaces en línea dentro de la cabecera.
+// Celular: botón que abre el menú a pantalla completa, o barra fija abajo si cliente.menuEnBarra = true.
+import { cliente } from "../data/cliente";
 
-  <div class="flex-column" id="overlay">
-    <a href="/">Inicio</a>
-    <a href="#servicios" class="internal-link">Servicios</a>
-    <a href="/planeta_hogar">Planeta hogar</a>
-    <!-- <a href="/reporte">Reporte</a>
-    <a href="/clientes">clientes</a> -->
+const { menu, menuEnBarra } = cliente;
+---
 
-    <i class="bi bi-x-lg close-nav" aria-label="Cerrar menú"></i>
+<nav class:list={["flex-row", { "con-barra": menuEnBarra }]} aria-label="Menú principal">
+  <button type="button" class="btn btn-subtle btn-icon btn-sm open-nav" aria-label="Abrir menú" aria-controls="overlay" aria-expanded="false">
+    <i class="bi bi-list" aria-hidden="true"></i>
+  </button>
+
+  <div id="overlay">
+    <button type="button" class="btn btn-ghost btn-icon close-nav" aria-label="Cerrar menú">
+      <i class="bi bi-x-lg" aria-hidden="true"></i>
+    </button>
+    <ol class="enlaces">
+      {
+        menu.map(({ texto, url }) => (
+          <li>
+            <a href={url}>{texto}</a>
+          </li>
+        ))
+      }
+    </ol>
+    <a class="btn btn-accent btn-lg btn-block escribir" href={cliente.whatsapp} target="_blank" rel="noopener">
+      <i class="bi bi-whatsapp" aria-hidden="true"></i>Contáctenos
+    </a>
   </div>
 </nav>
 
+{
+  menuEnBarra && (
+    <nav class="tabbar" aria-label="Menú principal">
+      {menu.map(({ texto, url, icono }) => (
+        <a class="flex-column" href={url}>
+          <i class={`bi ${icono}`} aria-hidden="true" />
+          {texto}
+        </a>
+      ))}
+    </nav>
+  )
+}
+
 <style>
   .open-nav {
-    font-size: 20px;
-    cursor: pointer;
-    background-color: #fff;
-    border: solid 1px #dcdcdc;
-    border-radius: 12px;
-    padding: 11.2px;
-    cursor: pointer;
+    font-size: var(--text-xl);
   }
 
+  /* Celular: menú a pantalla completa, enlaces grandes y numerados */
   #overlay {
     display: none;
     position: fixed;
     inset: 0;
-    gap: 7%;
-    background: var(--clr-white);
-    z-index: 100;
+    z-index: var(--z-modal);
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: var(--space-6);
+    padding: var(--space-5);
+    background-color: var(--clr-bg);
   }
 
-  #overlay.new-nav {
+  #overlay.abierto {
     display: flex;
+    animation: fadeIn 0.18s var(--ease);
   }
 
   .close-nav {
     position: absolute;
-    top: 0;
+    top: var(--space-4);
+    right: var(--space-4);
+  }
+
+  .enlaces {
+    counter-reset: enlace;
+  }
+
+  .enlaces li {
+    border-top: solid 1px var(--clr-border);
+    counter-increment: enlace;
+  }
+
+  .enlaces a {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding-block: var(--space-4);
+    color: var(--clr-text);
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 600;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .enlaces a::before {
+    content: counter(enlace, decimal-leading-zero);
+    color: var(--clr-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  /* Con barra abajo, en celular no hace falta el botón del menú */
+  .con-barra .open-nav {
+    display: none;
+  }
+
+  /* Barra fija abajo (solo celular). Su alto se le suma al pie y a los avisos con --tabbar-h */
+  .tabbar {
+    display: flex;
+    position: fixed;
     right: 0;
-    margin: 28px;
-    font-size: 24px;
-    cursor: pointer;
-    border-radius: 10px;
-    padding: 7px;
-    background: #fff;
-    color: var(--clr-dark);
-    border: solid 1px var(--clr-gray);
+    bottom: 0;
+    left: 0;
+    z-index: var(--z-nav);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background-color: var(--tabbar-bg);
+    border-top: solid 1px var(--clr-border);
+    backdrop-filter: blur(14px);
   }
 
-  #overlay a {
-    font-size: 18px;
-    background: #fff;
-    padding: 10px 17px;
-    border: solid 1px var(--clr-gray);
-    border-radius: 12px;
-    letter-spacing: 7px;
-    width: 210px;
-    text-align: center;
-    text-transform: uppercase;
-    color: var(--clr-dark);
-    line-height: normal;
+  .tabbar a {
+    flex: 1;
+    gap: 2px;
+    height: 58px;
+    color: var(--clr-text-muted);
+    font-size: var(--text-xs);
+    font-weight: 500;
   }
 
-  /* Desktop */
-  @media (min-width: 768px) {
+  .tabbar i {
+    font-size: var(--text-xl);
+  }
+
+  @media (hover: hover) {
+    .enlaces a:hover,
+    .tabbar a:hover {
+      color: var(--clr-text);
+    }
+  }
+
+  /* Computador: enlaces de texto en la cabecera */
+  @media (min-width: 750px) {
     .open-nav,
-    .close-nav {
+    .close-nav,
+    .escribir,
+    .tabbar {
       display: none;
     }
+
     #overlay {
-      display: flex;
-      position: relative;
-      inset: auto;
-      flex-direction: row;
-      width: auto;
-      height: auto;
-      gap: 7px;
-      backdrop-filter: none;
-      background: transparent;
-    }
-    #overlay a {
-      font-size: 14px;
-      letter-spacing: 0;
-      width: auto;
-      transition: 0.2s ease;
+      display: block;
+      position: static;
+      padding: 0;
+      background: none;
     }
 
-    #overlay a:hover {
-      background-color: #dcdcdc;
+    #overlay.abierto {
+      display: block;
+      animation: none;
+    }
+
+    .enlaces {
+      display: flex;
+      gap: var(--space-1);
+    }
+
+    .enlaces li {
+      border: 0;
+    }
+
+    .enlaces a {
+      display: block;
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm);
+      color: var(--clr-text-2);
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      letter-spacing: 0;
+      transition: var(--transition);
+    }
+
+    .enlaces a::before {
+      content: none;
+    }
+  }
+
+  @media (hover: hover) and (min-width: 750px) {
+    .enlaces a:hover {
+      background-color: var(--clr-surface-hover);
     }
   }
 </style>
 
 <script>
-  //@ts-nocheck
-  document.addEventListener("DOMContentLoaded", () => {
-    const overlay = document.getElementById("overlay");
-    const openBtn = document.querySelector(".open-nav");
-    const closeBtn = document.querySelector(".close-nav");
-    const allLinks = overlay?.querySelectorAll("a");
+  const overlay = document.getElementById("overlay");
+  const openBtn = document.querySelector(".open-nav");
+  const closeBtn = document.querySelector(".close-nav");
 
-    const open = () => {
-      if (overlay) {
-        overlay.style.display = "flex";
-      }
-    };
+  const toggle = (abrir: boolean) => {
+    overlay?.classList.toggle("abierto", abrir);
+    openBtn?.setAttribute("aria-expanded", String(abrir));
+    document.body.classList.toggle("sin-scroll", abrir);
+  };
 
-    const close = () => {
-      if (overlay) overlay.style.display = "none";
-    };
-
-    openBtn?.addEventListener("click", open);
-    closeBtn?.addEventListener("click", close);
-
-    // Cerrar menú al hacer clic en cualquier enlace (en móvil)
-    allLinks?.forEach((link) => {
-      link.addEventListener("click", (e) => {
-        // Si es un enlace interno (#servicios), verificar si la sección existe
-        if (link.classList.contains("internal-link")) {
-          const targetId = link.getAttribute("href").substring(1); // Quitar el #
-          const targetSection = document.getElementById(targetId);
-
-          if (!targetSection) {
-            // La sección no existe, redirigir a la página principal (móvil y desktop)
-            e.preventDefault();
-            window.location.href = "/#" + targetId;
-            return;
-          }
-
-          // La sección existe, cerrar el menú solo en móvil
-          if (window.innerWidth < 700) {
-            close();
-          }
-        } else {
-          // Es un enlace normal, cerrar el menú solo en móvil
-          if (window.innerWidth < 700) {
-            close();
-          }
-        }
-      });
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") close();
-    });
+  openBtn?.addEventListener("click", () => toggle(true));
+  closeBtn?.addEventListener("click", () => toggle(false));
+  overlay?.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => toggle(false)));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") toggle(false);
   });
 </script>

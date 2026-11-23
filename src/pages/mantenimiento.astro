@@ -1,0 +1,39 @@
+---
+// Página «en mantenimiento». Para prenderla, mandar todo el sitio aquí mientras dura el arreglo:
+//   Vercel  → en vercel.json:  "rewrites": [{ "source": "/((?!mantenimiento|_astro/|img/|fonts/).*)", "destination": "/mantenimiento" }]
+//   Netlify / Cloudflare → en public/_redirects:  /*  /mantenimiento  200
+// Para apagarla, quitar esa regla y volver a publicar.
+import Layout1 from "../layouts/Layout1.astro";
+import { cliente } from "../data/cliente";
+---
+
+<Layout1 title="Volvemos pronto" oculta sola>
+  <section class="flex-column bg-dots">
+    <img src="/img/logo.avif" alt={`Logo ${cliente.nombre}`} width="72" height="72" />
+    <span class="eyebrow">{cliente.nombre}</span>
+    <h1>Volvemos pronto</h1>
+    <p>Estamos mejorando el sitio. Mientras tanto, escríbanos y le atendemos igual.</p>
+    <a class="btn btn-accent btn-lg" href={cliente.whatsapp} target="_blank" rel="noopener">
+      <i class="bi bi-whatsapp" aria-hidden="true"></i>Contáctenos por WhatsApp
+    </a>
+  </section>
+</Layout1>
+
+<style>
+  section {
+    flex: 1;
+    gap: var(--space-3);
+    min-height: 100dvh;
+    text-align: center;
+  }
+
+  img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+  }
+
+  .btn {
+    margin-top: var(--space-3);
+  }
+</style>

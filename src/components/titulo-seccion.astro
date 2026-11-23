@@ -1,0 +1,69 @@
+---
+// Encabezado de una sección: línea fina + número y etiqueta + título + texto. Todo sale de cliente.ts.
+// El número (01, 02…) lo pone solo el navegador según el orden de las secciones.
+// `lado`: el encabezado va en una columna y el contenido de la sección al lado (ver preguntas.astro).
+interface Props {
+  etiqueta?: string;
+  titulo: string;
+  texto?: string;
+  lado?: boolean;
+}
+
+const { etiqueta, titulo, texto, lado } = Astro.props;
+---
+
+<header class:list={["titulo-seccion", "reveal", { lado }]}>
+  <span class="eyebrow">{etiqueta}</span>
+  <h2>{titulo}</h2>
+  {texto && <p>{texto}</p>}
+</header>
+
+<style>
+  .titulo-seccion {
+    display: grid;
+    align-content: start;
+    gap: var(--space-3);
+    padding-top: var(--space-5);
+    border-top: solid 1px var(--clr-border);
+    counter-increment: seccion;
+  }
+
+  /* El número de la sección lleva el color de vida: es el detalle que se repite en toda la página */
+  .eyebrow::before {
+    content: counter(seccion, decimal-leading-zero);
+    margin-right: var(--space-3);
+    color: var(--clr-accent-text);
+  }
+
+  h2 {
+    max-width: 18ch;
+    font-size: var(--text-3xl);
+  }
+
+  p {
+    max-width: var(--text-max);
+    font-size: var(--text-lg);
+  }
+
+  /* Computador: título a la izquierda, texto a la derecha */
+  @media (min-width: 750px) {
+    .titulo-seccion:not(.lado) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--space-7);
+    }
+
+    .titulo-seccion:not(.lado) .eyebrow {
+      grid-column: 1 / -1;
+    }
+
+    .titulo-seccion:not(.lado) p {
+      align-self: end;
+    }
+
+    /* Al lado del contenido: la línea de arriba la pone el contenedor, para que cruce las dos columnas */
+    .lado {
+      padding-top: 0;
+      border-top: 0;
+    }
+  }
+</style>

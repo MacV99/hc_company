@@ -1,119 +1,169 @@
-<footer class="flex-column">
-  <img src="/img/logo.jpg" alt="logo" />
-  <h3>HC Company S.A.S</h3>
+---
+// Pie: sigue el tema (gris muy suave en claro, oscuro en oscuro). Arriba la marca y las columnas; abajo el nombre en grande como firma.
+import { cliente } from "../data/cliente";
 
-  <div class="info flex-row">
-    <div class="contact-info">
-      <i class="bi bi-geo-alt-fill"></i>
-      <p>Cali, Colombia</p>
-      <p>Prestamos servicio a nivel nacional</p>
+const year = new Date().getFullYear();
+const tel = cliente.telefono.replace(/\s/g, "");
+---
+
+<footer>
+  <div class="arriba">
+    <div class="marca flex-column">
+      <a href="/" class="flex-row" aria-label={`${cliente.nombre}: inicio`}>
+        <img src="/img/logo.avif" alt="" width="44" height="44" loading="lazy" />
+        <strong>{cliente.nombre}</strong>
+      </a>
+      <p>{cliente.descripcion}</p>
     </div>
-    <div class="contact-info">
-      <i class="bi bi-telephone-fill"></i>
-      <p>Teléfono:(+57) 313 6536775</p>
-      <p>Área Técnica (+57) 317 441 5108</p>
+
+    <div class="columnas">
+    <nav class="columna flex-column" aria-label="Menú del pie">
+      <span class="eyebrow">Menú</span>
+      {cliente.menu.map(({ texto, url }) => <a href={url}>{texto}</a>)}
+    </nav>
+
+    <div class="columna flex-column">
+      <span class="eyebrow">Contacto</span>
+      <a href={`tel:${tel}`}>{cliente.telefono}</a>
+      <a href={`mailto:${cliente.correo}`}>{cliente.correo}</a>
+      <span>{cliente.ubicacion}</span>
     </div>
-    <div class="contact-info">
-      <i class="bi bi-envelope-fill"></i>
-      <p>comercial@hccompanysas.com</p>
-      <p>diradmin@hccompanysas.com</p>
+
+    <div class="columna flex-column">
+      <span class="eyebrow">Redes</span>
+      {
+        cliente.redes.map(({ nombre, icono, url }) => (
+          <a class="flex-row" href={url} target="_blank" rel="noopener">
+            <i class={`bi ${icono}`} aria-hidden="true" />
+            {nombre}
+          </a>
+        ))
+      }
     </div>
-    <div class="contact-info">
-      <i class="bi bi-clock-fill"></i>
-      <p>Lunes a viernes</p>
-      <p>8:00 a.m. a 12:00 p.m.</p>
-      <p>2:00 p.m a 5:00 p.m.</p>
     </div>
   </div>
 
-  <div class="flex-row follow">
-    <a
-      href="https://api.whatsapp.com/send/?phone=%2B573136536775&text&type=phone_number&app_absent=0"
-      target="_blank"><i class="bi bi-whatsapp"></i></a
-    >
-    <a href="https://www.instagram.com/hccompanysas/" target="_blank"
-      ><i class="bi bi-instagram"></i></a
-    >
-    <a
-      href="https://www.facebook.com/Comercialhccompanysas/?ref=pages_you_manage"
-      target="_blank"><i class="bi bi-facebook"></i></a
-    >
+  <div class="abajo flex-row">
+    <small>© {year} {cliente.legal.razonSocial}</small>
+    <small>Hecho por MacV</small>
   </div>
 
-  <code>© copyright 2025 By MacV</code>
+  <p class="firma" aria-hidden="true" data-texto={cliente.nombre}></p>
 </footer>
 
 <style>
   footer {
-    background-color: var(--clr-dark);
-    color: var(--clr-white);
-    padding-bottom: 50px;
-    background-image: url("/img/hero.jpg");
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-blend-mode: color;
-    background-color: rgba(0, 0, 0, 0.9);
-    background-size: cover;
-  }
-
-  img {
-    background-color: var(--clr-dark);
-    height: 160px;
-    width: auto;
-    object-fit: cover;
-    margin-top: -5px;
-    border-radius: 10px;
-    /* border: 2px solid var(--clr-white); */
-  }
-
-  .contact-info {
-    /* border: solid 1px #ffffff5a; */
-    backdrop-filter: blur(10px);
-    border-radius: 10px;
-    padding: 15px;
-    flex-grow: 1;
-  }
-
-  .contact-info p {
-    display: flex;
-    flex-direction: row;
-    color: var(--clr-white);
-    justify-content: center;
-    font-size: 0.8rem;
-  }
-
-  .contact-info i {
-    font-size: 30px;
-    margin-bottom: 10px;
-  }
-
-  .info {
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: stretch;
-  }
-
-  .follow {
-    gap: 0px;
-    border: solid 1px #ffffff5a;
-    backdrop-filter: blur(10px);
-    border-radius: 50px;
-    padding: 0px 0px;
+    align-items: center;
+    gap: var(--space-6);
+    margin-top: var(--space-7);
+    padding-bottom: calc(var(--space-5) + var(--tabbar-h));
     overflow: hidden;
-    margin-top: 10px;
+    background-color: var(--footer-bg);
+    border-top: solid 1px var(--clr-border);
+    color: var(--footer-fg);
   }
 
-  .follow i {
-    font-size: 26px;
-    color: var(--clr-white);
-    padding: 16px 22px;
-    transition: var(--transition);
-    border-bottom: solid 1px transparent;
+  .arriba {
+    display: grid;
+    gap: var(--space-6);
   }
 
-  .follow i:hover {
-    color: #fff;
-    background-color: #ffffff11;
+  /* Las columnas se acomodan solas según el ancho (1, 2 o 3 por fila) */
+  .columnas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--space-6) var(--space-5);
   }
+
+  .marca {
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--space-3);
+  }
+
+  .marca a {
+    gap: var(--space-3);
+    color: var(--footer-fg);
+    font-size: var(--text-lg);
+    letter-spacing: -0.02em;
+  }
+
+  .marca img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+  }
+
+  .marca p {
+    max-width: 38ch;
+    color: var(--footer-muted);
+  }
+
+  .columna {
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+  }
+
+  .columna .eyebrow {
+    margin-bottom: var(--space-1);
+    color: var(--footer-muted);
+  }
+
+  .columna a,
+  .columna span:not(.eyebrow) {
+    gap: var(--space-2);
+    color: var(--footer-fg);
+    overflow-wrap: anywhere;
+  }
+
+  .abajo {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-4);
+    padding-top: var(--space-4);
+    border-top: solid 1px var(--footer-border);
+  }
+
+  small,
+  small a {
+    color: var(--footer-muted);
+    font-size: var(--text-xs);
+  }
+
+  /* Firma: el nombre en grande, casi invisible, cortado por el borde de abajo.
+     Es adorno: se pinta desde el atributo para que no cuente como texto repetido de la página */
+  .firma::before {
+    content: attr(data-texto);
+  }
+
+  .firma {
+    margin-bottom: calc(var(--space-7) * -1);
+    color: var(--footer-hover-bg);
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 15vw, 11rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  @media (hover: hover) {
+    .columna a:hover,
+    small a:hover {
+      color: var(--footer-fg);
+      text-decoration: underline;
+    }
+  }
+
+  /* Computador: la marca a la izquierda y las columnas a la derecha */
+  @media (min-width: 750px) {
+    .arriba {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      gap: var(--space-7);
+    }
+  }
+
 </style>

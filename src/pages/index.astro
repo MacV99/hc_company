@@ -1,109 +1,24 @@
 ---
+// Inicio. El orden de las secciones es el de esta lista: mover una línea = mover la sección.
 import Layout1 from "../layouts/Layout1.astro";
-
-import Hero from "../sections/Hero.astro";
-import Equipos from "../components/equipos.astro";
+import Hero from "../sections/hero.astro";
+import Cifras from "../sections/cifras.astro";
+import Servicios from "../sections/servicios.astro";
+import Nosotros from "../sections/nosotros.astro";
+import Marcas from "../sections/marcas.astro";
+import Llamada from "../sections/llamada.astro";
+import Contacto from "../sections/contacto.astro";
 ---
 
 <Layout1
   title="Mantenimiento de Equipos de Laboratorio en Colombia | HC Company S.A.S"
   description="HC Company S.A.S: mantenimiento preventivo, correctivo y predictivo de equipos de laboratorio, automatización, restauración y calificación IQ-OQ-PQ. Servicio profesional a nivel nacional desde Cali, Colombia."
 >
-	<Hero />
-
-	<section id="nosotros" class="flex-column">
-		<h2>SERVICIO ESPECIALIZADO PARA EQUIPOS DE LABORATORIO</h2>
-		<p>
-			Nuestros esfuerzos están encaminados a satisfacer las necesidades de
-			mantenimiento preventivo, correctivo, predictivo, ajuste y calificación y
-			a alargar la vida útil de los equipos.
-		</p>
-		<p>
-			Contamos con experiencia, conocimiento y recurso físico y humano, que nos
-			permiten ofrecer un servicio integral, profesional y empático con los
-			requerimientos e intereses de nuestros clientes.
-		</p>
-	</section>
-
-	<section id="servicios" class="flex-column">
-		<h2>nuestros servicios</h2>
-		<div class="flex-row">
-			<a class="service-card flex-column" href="/servicios/mantenimiento">
-				<img
-					src="/img/servicios/mantenimiento.jpg"
-					alt="Mantenimiento preventivo, correctivo y predictivo de equipos de laboratorio"
-				/>
-				<h3>MANTENIMIENTO PREVENTIVO - CORRECTIVO PREDICTIVO</h3>
-			</a>
-			<a class="service-card flex-column" href="/servicios/automatizacion">
-				<img
-					src="/img/servicios/automatizacion.jpg"
-					alt="Automatización, restauración y adaptación de equipos de laboratorio"
-				/>
-				<h3>AUTOMATIZACIÓN - RESTAURACIÓN ADAPTACIÓN - FÁBRICA - ASESORÍA</h3>
-			</a>
-			<a class="service-card flex-column" href="/servicios/calificacion">
-				<img src="/img/servicios/calificacion.jpg" alt="Calificación IQ OQ PQ de equipos de laboratorio" />
-				<h3>CALIFICACIÓN</h3>
-			</a>
-		</div>
-	</section>
-
-	<Equipos />
+  <Hero />
+  <Cifras />
+  <Servicios />
+  <Nosotros />
+  <Marcas />
+  <Llamada />
+  <Contacto />
 </Layout1>
-
-<style>
-	#nosotros {
-		text-align: center;
-		background-color: #fff;
-		gap: 10px;
-	}
-
-	h2 {
-		font-size: 1.5rem;
-		line-height: normal;
-	}
-
-	#servicios > div {
-		flex-wrap: wrap;
-		gap: 15px;
-		align-items: stretch;
-		width: 100%;
-	}
-
-	#servicios .service-card {
-		background-color: #fff;
-		width: 100%;
-		max-width: 300px;
-		border-radius: 10px;
-		text-align: center;
-		overflow: hidden;
-		transition: var(--transition);
-		border: solid 1px transparent;
-	}
-
-	#servicios .service-card:hover {
-		border: solid 1px var(--clr-gray);
-	}
-
-	#servicios .service-card img {
-		width: 100%;
-		height: 180px;
-		object-fit: cover;
-		margin-bottom: auto;
-	}
-
-	#servicios .service-card h3 {
-		padding: 10px 15px;
-		text-align: center;
-		margin-bottom: auto;
-		color: var(--clr-dark2);
-		font-size: 0.88rem;
-	}
-
-	@media (min-width: 768px) {
-		h2 {
-			font-size: 2rem;
-		}
-	}
-</style>

@@ -1,0 +1,95 @@
+---
+// Tarjetas con foto arriba, título y texto opcional.
+// `pequenas`: fotos de poco tamaño; se muestran enteras y sin estirar.
+// `llenas`: la foto llena un cuadro (se recorta un poco por los bordes) en vez de verse entera con franjas a los lados.
+interface Tarjeta {
+  imagen: string;
+  alt: string;
+  titulo?: string;
+  texto?: string;
+}
+
+interface Props {
+  tarjetas: Tarjeta[];
+  pequenas?: boolean;
+  llenas?: boolean;
+}
+
+const { tarjetas, pequenas, llenas } = Astro.props;
+---
+
+<ul class:list={["tarjetas", { pequenas, llenas }]}>
+  {
+    tarjetas.map(({ imagen, alt, titulo, texto }) => (
+      <li class="card flex-column reveal">
+        <img src={imagen} alt={alt} loading="lazy" />
+        {(titulo || texto) && (
+          <div class="flex-column">
+            {titulo && <h3>{titulo}</h3>}
+            {texto && <p>{texto}</p>}
+          </div>
+        )}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .tarjetas {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .pequenas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  li {
+    align-items: stretch;
+    justify-content: flex-start;
+    overflow: hidden;
+    box-shadow: none;
+  }
+
+  /* Las fotos son de equipos sobre fondo claro: se ven enteras sobre blanco, en los dos temas */
+  img {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    background-color: var(--img-clara-bg);
+    border-bottom: solid 1px var(--card-border);
+  }
+
+  .llenas img {
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .pequenas img {
+    height: 200px;
+    padding: var(--space-3);
+    border-bottom: 0;
+  }
+
+  div {
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding: var(--card-pad);
+  }
+
+  h3 {
+    color: var(--clr-primary);
+  }
+
+  p {
+    font-size: var(--text-md);
+  }
+
+  @media (min-width: 750px) {
+    .tarjetas {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
+</style>

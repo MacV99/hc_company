@@ -1,0 +1,61 @@
+---
+// Lista corta en columnas, con una marca delante de cada renglón. `titulo` es opcional.
+interface Props {
+  titulo?: string;
+  elementos: string[];
+  /** Una sola columna (listas de pocos renglones). */
+  una?: boolean;
+}
+
+const { titulo, elementos, una } = Astro.props;
+---
+
+<div class="lista flex-column">
+  {titulo && <h3>{titulo}</h3>}
+  <ul class:list={{ una }}>
+    {
+      elementos.map((texto) => (
+        <li class="flex-row">
+          <i class="bi bi-check2" aria-hidden="true" />
+          {texto}
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .lista {
+    align-items: stretch;
+    gap: var(--space-2);
+    width: 100%;
+  }
+
+  h3 {
+    font-size: var(--text-md);
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0 var(--space-5);
+  }
+
+  .una {
+    grid-template-columns: 1fr;
+  }
+
+  li {
+    justify-content: flex-start;
+    gap: var(--space-2);
+    padding-block: var(--space-2);
+    border-bottom: solid 1px var(--clr-border);
+    color: var(--clr-text);
+    font-size: var(--text-md);
+  }
+
+  i {
+    flex-shrink: 0;
+    color: var(--clr-accent-text);
+  }
+</style>
